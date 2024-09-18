@@ -30,7 +30,6 @@
                                     <td>{{ $item->type_training }}</td>
                                     <td>
                                         <a href="{{ route('fighter_show',$item->id) }}" target="_blank" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
