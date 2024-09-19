@@ -6,7 +6,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    <div class="row">
+                    <div class="row mb-3">
 
                         <div class="col-3">
                             <div class="card" style="width: 18rem;">
@@ -53,6 +53,30 @@
                         </div>
 
 
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card p-1">
+                                <div class="card-header">
+                                    Type of training
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Type name</th>
+                                                <th>Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 

@@ -27,6 +27,7 @@ class DashboardController extends Controller
             ->where('exp_date','>=', date('Y-m-d'))
             ->count();
 
+
         return view('dashboard',compact('dataFighters','fighterAvtive','dataCustomer','customerActive'));
     }
 }
