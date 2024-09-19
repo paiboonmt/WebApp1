@@ -17,8 +17,8 @@
                     {{-- Data --}}
                     <div class="row">
                         <div class="col-4">
-                            <img id="img" src="{{ asset('http://172.16.0.3/fighterimg/img/' . $data[0]->image) }}">
-                            {{-- <img id="img" src="{{ asset('http://119.63.78.98:8889/fighterimg/img/'.$data[0]->image) }}"> --}}
+                            {{-- <img id="img" src="{{ asset('http://172.16.0.3/fighterimg/img/' . $data[0]->image) }}"> --}}
+                            <img id="img" src="{{ asset('http://119.63.78.98:8889/fighterimg/img/'.$data[0]->image) }}">
                         </div>
                         <div class="col-8">
 
@@ -146,8 +146,8 @@
                         <div class="col">
                             <div class="card-group">
                                 @foreach ($files as $file)
-                                    <a data-fancybox="gallery" data-src="{{ asset('http://172.16.0.3/fighterimg/file/'.$file->image) }}">
-                                        <img src="{{ asset('http://172.16.0.3/fighterimg/file/'.$file->image) }}"
+                                    <a data-fancybox="gallery" data-src="{{ asset('http://119.63.78.98:8889/fighterimg/file/'.$file->image) }}">
+                                        <img src="{{ asset('http://119.63.78.98:8889/fighterimg/file/'.$file->image) }}"
                                             width="50px"
                                             class="me-2 rounded"
                                             style="cursor: pointer"
