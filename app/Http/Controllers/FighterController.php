@@ -12,7 +12,7 @@ class FighterController extends Controller
     public function index(){
         $Fighters = DB::table('member')
             ->where('group','fighter')
-            // ->limit(100)
+            ->limit(10)
             ->orderByDesc('id')
             ->get();
         return view('fighters', compact('Fighters'));

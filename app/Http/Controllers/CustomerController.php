@@ -14,7 +14,7 @@ class CustomerController extends Controller
             ->join('products','member.package','=','products.id')
             ->where('status_code','4')
             ->select('member.*','products.product_name')
-            // ->limit(100)
+            ->limit(10)
             ->orderByDesc('member.id')
             ->get();
         return view('customers',compact('Customers'));
@@ -22,7 +22,9 @@ class CustomerController extends Controller
 
     public function show( string $id){
         $data = DB::table('member')
-            ->where('id',$id)
+            ->join('products','member.package','=','products.id')
+            ->where('member.id',$id)
+            ->select('member.*','products.product_name')
             ->get();
 
         //กำหนดหมายเลขบัตร
@@ -48,6 +50,14 @@ class CustomerController extends Controller
 
         $exp = (int) $startDate->diffInDays($endDate);
 
-        return view('customer_show',compact('data','age','exp'));
+        $files = DB::table('tb_files')
+            ->where('product_id',$id)
+            ->get();
+
+        $times = DB::table('tb_time')
+            ->where('ref_m_card',$m_card)
+            ->get();
+
+        return view('customer_show',compact('data','age','exp','files','times'));
     }
 }
