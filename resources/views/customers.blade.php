@@ -26,7 +26,7 @@
                                 <tr class="text-left">
                                     <td>{{ $i++ }}</td>
                                     <td>
-                                        <img style="border-radius: 50px" width="30px" id="img" src="{{ asset('http://172.16.0.3/memberimg/img/'.$item->image) }}">
+                                        <img style="border-radius: 50px" width="30px"  src="{{ asset('http://172.16.0.3/memberimg/img/'.$item->image) }}">
                                     </td>
                                     <td>{{ $item->m_card }}</td>
                                     <td>{{ $item->fname }}</td>

@@ -9,6 +9,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Iamge</th>
                                 <th>Code</th>
                                 <th>Training</th>
                                 <th>Name</th>
@@ -24,6 +25,9 @@
                             @foreach ( $Fighters as $item)
                                 <tr>
                                     <td>{{ $i++ }}</td>
+                                    <td>
+                                        <img style="border-radius: 50px" width="30px" src="{{ asset('http://172.16.0.3/fighterimg/img/' . $item->image) }}">
+                                    </td>
                                     <td>{{ $item->m_card }}</td>
                                     <td>{{ $item->type_training }}</td>
                                     <td>{{ $item->fname }}</td>
