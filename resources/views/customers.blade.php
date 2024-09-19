@@ -33,7 +33,7 @@
                                     <td>{{ $item->nationalty }}</td>
                                     <td>{{ $item->product_name }}</td>
                                     <td>
-                                        <a href="{{ route('customer_show',$item->id) }}" class="btn btn-sm btn-info"><i class="fa-solid fa-binoculars"></i></a>
+                                        <a href="{{ route('customer_show',$item->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fa-solid fa-binoculars"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

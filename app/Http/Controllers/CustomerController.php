@@ -15,6 +15,7 @@ class CustomerController extends Controller
             ->where('status_code','4')
             ->select('member.*','products.product_name')
             // ->limit(100)
+            ->orderByDesc('member.id')
             ->get();
         return view('customers',compact('Customers'));
     }

@@ -21,7 +21,7 @@
                         {{ __('Fighters') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('customers')" :active="request()->routeIs(['customers','customers_show'])">
+                    <x-nav-link :href="route('customers')" :active="request()->routeIs(['customers','customer_show'])">
                         {{ __('Customers') }}
                     </x-nav-link>
 
