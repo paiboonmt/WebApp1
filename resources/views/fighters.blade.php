@@ -10,9 +10,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>Code</th>
+                                <th>Training</th>
                                 <th>Name</th>
                                 <th>Nationality</th>
-                                <th>Training</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -25,9 +25,9 @@
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $item->m_card }}</td>
-                                    <td class="text-left">{{ $item->fname }}</td>
-                                    <td>{{ $item->nationalty }}</td>
                                     <td>{{ $item->type_training }}</td>
+                                    <td>{{ $item->fname }}</td>
+                                    <td>{{ $item->nationalty }}</td>
                                     <td>
                                         <a href="{{ route('fighter_show',$item->id) }}" target="_blank" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                                     </td>
