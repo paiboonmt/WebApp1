@@ -5,7 +5,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    <table class="table" id="example">
+                    <table class="table table-sm table-hover" id="example">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -25,7 +25,7 @@
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $item->m_card }}</td>
-                                    <td>{{ $item->fname }}</td>
+                                    <td class="text-left">{{ $item->fname }}</td>
                                     <td>{{ $item->nationalty }}</td>
                                     <td>{{ $item->type_training }}</td>
                                     <td>

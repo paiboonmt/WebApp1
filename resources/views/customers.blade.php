@@ -5,15 +5,15 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    <table class="table" id="example">
+                    <table class="table table-sm" id="example">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th>Nationality</th>
-                                {{-- <th>Packages</th> --}}
-                                <th></th>
+                                <th>Package</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,7 +27,10 @@
                                     <td>{{ $item->m_card }}</td>
                                     <td>{{ $item->fname }}</td>
                                     <td>{{ $item->nationalty }}</td>
-                                    {{-- <td>{{ $item->package }}</td> --}}
+                                    <td>{{ $item->product_name }}</td>
+                                    <td>
+                                        <a href="" class="btn btn-sm btn-info"><i class="fa-solid fa-binoculars"></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

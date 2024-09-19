@@ -3,4 +3,4 @@
 </svg> --}}
 
 
-<img src="{{ asset('image/logo.png') }}" width="50px" height="50px" >
+<img src="{{ asset('image/logo.png') }}" width="40px" height="40px" >
