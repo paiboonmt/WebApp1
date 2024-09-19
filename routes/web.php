@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/fighters',[FighterController::class,'index'])->name('fighters');
     Route::get('/fighter_show/{id}',[FighterController::class,'show'])->name('fighter_show');
     Route::get('/customers',[CustomerController::class,'index'])->name('customers');
+    Route::get('/customer_show/{id}',[CustomerController::class,'show'])->name('customer_show');
 });
 
 

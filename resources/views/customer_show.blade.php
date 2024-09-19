@@ -1,23 +1,14 @@
-<style>
-    #img {
-        border-radius: 15px;
-        align-items: center;
-        /* width: 100%; */
-        height: 450px;
-        padding-left: 60px;
-    }
-</style>
 <x-app-layout>
 
     <div class="p-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     {{-- Data --}}
                     <div class="row">
                         <div class="col-4">
-                            <img id="img" src="{{ asset('http://172.16.0.3/fighterimg/img/' . $data[0]->image) }}">
+                            <img id="img" src="{{ asset('http://172.16.0.3/memberimg/img/' . $data[0]->image) }}">
                             {{-- <img id="img" src="{{ asset('http://119.63.78.98:8889/fighterimg/img/'.$data[0]->image) }}"> --}}
                         </div>
                         <div class="col-8">
@@ -122,66 +113,6 @@
                             </div>
 
 
-                        </div>
-                    </div>
-
-                    {{-- Comment accom --}}
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Comment</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $data[0]->comment }}</textarea>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Accommodations</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $data[0]->accom }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Files --}}
-                    <div class="row">
-                        <div class="col">
-                            <div class="card-group">
-                                @foreach ($files as $file)
-                                    <a data-fancybox="gallery" data-src="{{ asset('http://172.16.0.3/fighterimg/file/'.$file->image) }}">
-                                        <img src="{{ asset('http://172.16.0.3/fighterimg/file/'.$file->image) }}"
-                                            width="50px"
-                                            class="me-2 rounded"
-                                            style="cursor: pointer"
-                                        />
-                                    </a>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Time check in --}}
-                    <div class="row p-2">
-                        <div class="col">
-                               <div class="card p-2">
-                                    <table class="table" id="example">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Date | Time</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $i = 1;
-                                            @endphp
-                                            @foreach ($times as $time)
-                                                <tr>
-                                                    <td>{{ $i++ }}</td>
-                                                    <td>{{ $time->date }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                               </div>
                         </div>
                     </div>
 

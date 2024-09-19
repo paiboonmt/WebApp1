@@ -1,3 +1,4 @@
+
 <x-app-layout>
 
     <div class="p-2">
@@ -9,6 +10,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Image</th>
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th>Nationality</th>
@@ -22,14 +24,17 @@
                             @endphp
 
                             @foreach ( $Customers as $item)
-                                <tr>
+                                <tr class="text-left">
                                     <td>{{ $i++ }}</td>
+                                    <td>
+                                        <img style="border-radius: 50px" width="30px" id="img" src="{{ asset('http://172.16.0.3/memberimg/img/'.$item->image) }}">
+                                    </td>
                                     <td>{{ $item->m_card }}</td>
                                     <td>{{ $item->fname }}</td>
                                     <td>{{ $item->nationalty }}</td>
                                     <td>{{ $item->product_name }}</td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-info"><i class="fa-solid fa-binoculars"></i></a>
+                                        <a href="{{ route('customers_show',$item->id) }}" class="btn btn-sm btn-info"><i class="fa-solid fa-binoculars"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
