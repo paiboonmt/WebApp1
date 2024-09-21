@@ -143,6 +143,8 @@
                             </div>
                         </div>
 
+                        <button class="btn btn-success" type="submit">SAVE TO | <i class="fa fa-database"></i></button>
+
                     </form>
 
                 </div>

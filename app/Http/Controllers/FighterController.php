@@ -66,7 +66,24 @@ class FighterController extends Controller
 
         dump($request);
 
-        return to_route('fighters');
+        // "_token" => "fdmYCYaNUGe7nzaWPYaao9HIfEcZXFFQx42vgri2"
+        // "m_card" => "1234"
+        // "passport" => "1234"
+        // "sex" => "Male"
+        // "fname" => "Paiboon Yaniwong"
+        // "Email" => "it@dev.tiger"
+        // "phone" => "1169"
+        // "fightname" => "Thanos"
+        // "nationalty" => "Croatian / Croatia"
+        // "birthday" => "1985-09-18"
+        // "emergency" => "1169"
+        // "sta_date" => "2024-09-01"
+        // "exp_date" => "2024-10-01"
+        // "type_training" => "Temporary"
+        // "comment" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, quam!"
+        // "accom" => "Lorem ipsum dolor sit amet."
+
+        // return to_route('fighters');
     }
 
 }
