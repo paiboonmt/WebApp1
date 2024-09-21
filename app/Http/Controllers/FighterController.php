@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fighter;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -62,11 +64,11 @@ class FighterController extends Controller
         return view('fighter_create',compact('dataNationality'));
     }
 
-    public function store( Request $request ){
+    public function store( Request $request ) : RedirectResponse {
 
         $request->validate([
             'm_card' => 'required',
-            'passport' => 'required',
+            'p_visa' => 'required',
             'sex' => 'required',
             'fname' => 'required',
             'email' => 'required',
@@ -83,17 +85,35 @@ class FighterController extends Controller
             'image' => 'required',
         ]);
 
-
-        // dd($request->hasFile('image'));
-
         if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $newName = time().'.'.$image->getClientOriginalExtension();
                 $image->move(public_path('image/fighter/'),$newName);
+
+                $fighter = new Fighter;
+                $fighter->m_card = $request->m_card;
+                $fighter->p_visa = $request->p_visa;
+                $fighter->sex = $request->sex;
+                $fighter->fname = $request->fname;
+                $fighter->email = $request->email;
+                $fighter->phone = $request->phone;
+                $fighter->fightname = $request->fightname;
+                $fighter->nationality = $request->nationality;
+                $fighter->birthday = $request->birthday;
+                $fighter->emergency = $request->emergency;
+                $fighter->sta_date = $request->sta_date;
+                $fighter->exp_date = $request->exp_date;
+                $fighter->type_training = $request->type_training;
+                $fighter->comment = $request->comment;
+                $fighter->accom = $request->accom;
+                $fighter->image = $newName;
+
+                $fighter->save();
+
         }
 
 
-        // return to_route('fighters');
+        return to_route('manage');
     }
 
 }

@@ -31,7 +31,7 @@
                                 {{-- Visa number --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Visa number</span>
-                                    <input type="text" class="form-control" name="passport" value="1234">
+                                    <input type="text" class="form-control" name="p_visa" value="1234">
                                 </div>
 
                                 @error('passport')
