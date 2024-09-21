@@ -12,7 +12,7 @@ class FighterController extends Controller
     public function index(){
         $Fighters = DB::table('member')
             ->where('group','fighter')
-            // ->limit(10)
+            ->limit(10)
             ->orderByDesc('id')
             ->get();
         return view('fighters', compact('Fighters'));
@@ -56,4 +56,17 @@ class FighterController extends Controller
 
         return view('fighter_show',compact('data','age','files','times','exp'));
     }
+
+    public function create(){
+        $dataNationality = DB::table('tb_nationality')->get();
+        return view('fighter_create',compact('dataNationality'));
+    }
+
+    public function store( Request $request ){
+
+        dump($request);
+
+        return to_route('fighters');
+    }
+
 }

@@ -25,6 +25,10 @@
                         {{ __('Customers') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('manage')" :active="request()->routeIs(['manage','fighter_create'])">
+                        {{ __('Manage') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 
