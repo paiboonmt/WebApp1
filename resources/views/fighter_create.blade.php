@@ -21,7 +21,7 @@
                                 {{-- fname --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Card number</span>
-                                    <input type="text" class="form-control" name="m_card" value="1234">
+                                    <input type="text" class="form-control" name="m_card" value="{{ old('m_card') }}">
                                 </div>
 
                                 @error('m_card')
@@ -31,7 +31,7 @@
                                 {{-- Visa number --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Visa number</span>
-                                    <input type="text" class="form-control" name="p_visa" value="1234">
+                                    <input type="text" class="form-control" name="p_visa" value="{{ old('p_visa') }}">
                                 </div>
 
                                 @error('passport')
@@ -52,7 +52,7 @@
                                     <div class="col-8">
                                         <div class="input-group input-group-sm mb-2">
                                             <span class="input-group-text" >Full name</span>
-                                            <input type="text" class="form-control" name="fname" value="Paiboon Yaniwong">
+                                            <input type="text" class="form-control" name="fname" value="{{ old('fname') }}">
                                         </div>
                                     </div>
 
@@ -64,7 +64,7 @@
                                 {{-- Email --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Email</span>
-                                    <input type="text" class="form-control" name="email" value="it@dev.tiger">
+                                    <input type="text" class="form-control" name="email" value="{{ old('email') }}">
                                 </div>
 
                                 @error('email')
@@ -74,7 +74,7 @@
                                 {{-- Phone number --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Phone number</span>
-                                    <input type="text" class="form-control" name="phone" value="1169">
+                                    <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
                                 </div>
 
                                 @error('phone')
@@ -84,7 +84,7 @@
                                 {{-- Fighter name --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text">Fighter name</span>
-                                    <input type="text" class="form-control" name="fightname" value="Thanos">
+                                    <input type="text" class="form-control" name="fightname" value="{{ old('fightname') }}">
                                 </div>
 
                                 @error('fightname')
@@ -96,7 +96,7 @@
                                     <div class="col-6">
                                         <div class="input-group input-group-sm mb-2">
                                             <label class="input-group-text">Nationality</label>
-                                            <select class="form-select" name="nationality">
+                                            <select class="form-select" name="nationality" value="{{ old('nationality') }}">
                                                 @foreach ($dataNationality as $rowna)
                                                     <option value="{{ $rowna->n_name }}">{{ $rowna->n_name }}</option>
                                                 @endforeach
@@ -106,7 +106,7 @@
                                     <div class="col-6">
                                         <div class="input-group input-group-sm mb-2">
                                             <span class="input-group-text">Birthday</span>
-                                            <input type="date" class="form-control" name="birthday" value="1985-09-18">
+                                            <input type="date" class="form-control" name="birthday" value="{{ old('birthday') }}">
                                         </div>
                                     </div>
 
@@ -118,14 +118,14 @@
                                 {{-- Emergency --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text">Emergency</span>
-                                    <input type="text" class="form-control" name="emergency" value="1169">
+                                    <input type="text" class="form-control" name="emergency" value="{{ old('emergency') }}">
                                 </div>
                                 {{-- Start Training , Expriy , Type of training --}}
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="input-group input-group-sm mb-2">
                                             <span class="input-group-text">Start Training</span>
-                                            <input type="date" class="form-control" name="sta_date" value="2024-09-01">
+                                            <input type="date" class="form-control" name="sta_date" value="{{ old('sta_date') }}">
                                         </div>
                                     </div>
 
@@ -137,7 +137,7 @@
                                     <div class="col-4">
                                         <div class="input-group input-group-sm mb-2">
                                             <span class="input-group-text">Expriy</span>
-                                            <input type="date" class="form-control" name="exp_date" value="2024-10-01">
+                                            <input type="date" class="form-control" name="exp_date" value="{{ old('exp_date') }}">
                                         </div>
                                     </div>
 
@@ -149,7 +149,7 @@
                                     <div class="col-4">
                                         <div class="input-group input-group-sm mb-2">
                                             <label class="input-group-text">Type of training</label>
-                                            <select class="form-select" name="type_training">
+                                            <select class="form-select" name="type_training" value="{{ old('type_training') }}">
                                                 <option value="Temporary">Temporary</option>
                                                 <option value="Tryout">Tryout</option>
                                                 <option value="Trainee">Trainee</option>
@@ -174,13 +174,13 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label">Comment</label>
-                                    <textarea class="form-control" rows="3" name="comment">Lorem ipsum dolor sit amet.</textarea>
+                                    <textarea class="form-control" rows="3" name="comment">{{ old('comment') }}</textarea>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label">Accommodations</label>
-                                    <textarea class="form-control" rows="3" name="accom">Lorem ipsum dolor sit amet.</textarea>
+                                    <textarea class="form-control" rows="3" name="accom">{{ old('accom') }}</textarea>
                                 </div>
                             </div>
                         </div>

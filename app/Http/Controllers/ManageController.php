@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fighter;
 use Illuminate\Http\Request;
 
 class ManageController extends Controller
 {
     public function index(){
-        return view('manage');
+
+        $dataFighter = Fighter::all();
+
+        return view('manage',compact('dataFighter'));
     }
 }

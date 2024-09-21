@@ -67,7 +67,7 @@ class FighterController extends Controller
     public function store( Request $request ) : RedirectResponse {
 
         $request->validate([
-            'm_card' => 'required',
+            'm_card' => 'required|unique:fighters,m_card',
             'p_visa' => 'required',
             'sex' => 'required',
             'fname' => 'required',

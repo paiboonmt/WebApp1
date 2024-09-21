@@ -6,7 +6,8 @@
 
                     <div class="row">
                         <div class="col-6">
-                            <div class="card">
+
+                            <div class="card mb-2">
                                 <div class="card-header bg-dark" style="color: white">
                                     Sponsor Fighter
                                 </div>
@@ -17,6 +18,29 @@
                                     </a>
                                 </div>
                             </div>
+
+                            <div class="card">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $i=1;
+                                        @endphp
+                                        @foreach ($dataFighter as $frow)
+                                            <tr>
+                                                <td>{{ $i++ }}</td>
+                                                <td>{{ $frow->fname }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                         <div class="col-6">
                             <div class="card">
