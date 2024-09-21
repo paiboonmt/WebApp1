@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('fightname');
-            $table->string('nationalty');
+            $table->string('nationality');
             $table->date('birthday');
             $table->string('emergency');
             $table->date('sta_date');

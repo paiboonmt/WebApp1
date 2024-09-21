@@ -17,7 +17,7 @@ class Fighter extends Model
         'email',
         'phone',
         'fightname',
-        'nationalty',
+        'nationality',
         'birthday',
         'emergency',
         'sta_date',

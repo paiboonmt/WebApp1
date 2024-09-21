@@ -12,18 +12,32 @@
                             <div class="col-4">
                                 <img src="#" id="preview" width="100%">
                                 <input type="file" name="image" id="imageUpload" accept="image/*" class="form-control">
+                                @error('image')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="col-8">
                                 {{-- fname --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Card number</span>
                                     <input type="text" class="form-control" name="m_card" value="1234">
                                 </div>
+
+                                @error('m_card')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                                 {{-- Visa number --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Visa number</span>
                                     <input type="text" class="form-control" name="passport" value="1234">
                                 </div>
+
+                                @error('passport')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                                 {{-- Sex , fname --}}
                                 <div class="row">
                                     <div class="col-4">
@@ -41,35 +55,51 @@
                                             <input type="text" class="form-control" name="fname" value="Paiboon Yaniwong">
                                         </div>
                                     </div>
+
+                                    @error('fname')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
                                 </div>
                                 {{-- Email --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Email</span>
-                                    <input type="text" class="form-control" name="Email" value="it@dev.tiger">
+                                    <input type="text" class="form-control" name="email" value="it@dev.tiger">
                                 </div>
+
+                                @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                                 {{-- Phone number --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text" >Phone number</span>
                                     <input type="text" class="form-control" name="phone" value="1169">
                                 </div>
+
+                                @error('phone')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                                 {{-- Fighter name --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text">Fighter name</span>
                                     <input type="text" class="form-control" name="fightname" value="Thanos">
                                 </div>
 
-                                {{-- Birthday --}}
+                                @error('fightname')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
+                                {{-- Nationality , Birthday --}}
                                 <div class="row">
                                     <div class="col-6">
-
                                         <div class="input-group input-group-sm mb-2">
                                             <label class="input-group-text">Nationality</label>
-                                            <select class="form-select" name="nationalty">
-
+                                            <select class="form-select" name="nationality">
                                                 @foreach ($dataNationality as $rowna)
                                                     <option value="{{ $rowna->n_name }}">{{ $rowna->n_name }}</option>
                                                 @endforeach
-
                                             </select>
                                         </div>
                                     </div>
@@ -79,30 +109,44 @@
                                             <input type="date" class="form-control" name="birthday" value="1985-09-18">
                                         </div>
                                     </div>
-                                </div>
 
+                                    @error('birthday')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+                                </div>
                                 {{-- Emergency --}}
                                 <div class="input-group input-group-sm mb-2">
                                     <span class="input-group-text">Emergency</span>
                                     <input type="text" class="form-control" name="emergency" value="1169">
                                 </div>
-
                                 {{-- Start Training , Expriy , Type of training --}}
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="input-group input-group-sm mb-2">
-                                            <span class="input-group-text" >Start Training</span>
+                                            <span class="input-group-text">Start Training</span>
                                             <input type="date" class="form-control" name="sta_date" value="2024-09-01">
                                         </div>
                                     </div>
+
+                                    @error('sta_date')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+                                    {{-- Expriy --}}
                                     <div class="col-4">
                                         <div class="input-group input-group-sm mb-2">
                                             <span class="input-group-text">Expriy</span>
                                             <input type="date" class="form-control" name="exp_date" value="2024-10-01">
                                         </div>
                                     </div>
-                                    <div class="col-4">
 
+                                    @error('exp_date')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+                                    {{-- Type of training --}}
+                                    <div class="col-4">
                                         <div class="input-group input-group-sm mb-2">
                                             <label class="input-group-text">Type of training</label>
                                             <select class="form-select" name="type_training">
@@ -120,10 +164,8 @@
                                                 <option value="-">-</option>
                                             </select>
                                         </div>
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -132,7 +174,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label">Comment</label>
-                                    <textarea class="form-control" rows="3" name="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, quam!</textarea>
+                                    <textarea class="form-control" rows="3" name="comment">Lorem ipsum dolor sit amet.</textarea>
                                 </div>
                             </div>
                             <div class="col-6">

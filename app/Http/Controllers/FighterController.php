@@ -64,24 +64,34 @@ class FighterController extends Controller
 
     public function store( Request $request ){
 
-        dump($request);
+        $request->validate([
+            'm_card' => 'required',
+            'passport' => 'required',
+            'sex' => 'required',
+            'fname' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'fightname' => 'required',
+            'nationality' => 'required',
+            'birthday' => 'required',
+            'emergency' => 'required',
+            'sta_date' => 'required',
+            'exp_date' => 'required',
+            'type_training' => 'required',
+            'comment' => 'required',
+            'accom' => 'required',
+            'image' => 'required',
+        ]);
 
-        // "_token" => "fdmYCYaNUGe7nzaWPYaao9HIfEcZXFFQx42vgri2"
-        // "m_card" => "1234"
-        // "passport" => "1234"
-        // "sex" => "Male"
-        // "fname" => "Paiboon Yaniwong"
-        // "Email" => "it@dev.tiger"
-        // "phone" => "1169"
-        // "fightname" => "Thanos"
-        // "nationalty" => "Croatian / Croatia"
-        // "birthday" => "1985-09-18"
-        // "emergency" => "1169"
-        // "sta_date" => "2024-09-01"
-        // "exp_date" => "2024-10-01"
-        // "type_training" => "Temporary"
-        // "comment" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, quam!"
-        // "accom" => "Lorem ipsum dolor sit amet."
+
+        // dd($request->hasFile('image'));
+
+        if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $newName = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('image/fighter/'),$newName);
+        }
+
 
         // return to_route('fighters');
     }
