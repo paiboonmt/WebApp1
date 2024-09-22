@@ -10,7 +10,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Image</th>
+                                {{-- <th>Image</th> --}}
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th>Nationality</th>
@@ -25,9 +25,10 @@
                             @foreach ( $Customers as $item)
                                 <tr class="text-left">
                                     <td>{{ $i++ }}</td>
-                                    <td>
-                                        <img style="border-radius: 50px" width="30px"  src="{{ asset('http://172.16.0.3/memberimg/img/'.$item->image) }}">
-                                    </td>
+                                    {{-- <td> --}}
+                                        {{-- <img style="border-radius: 50px" width="30px"  src="{{ asset('http://172.16.0.3/memberimg/img/'.$item->image) }}"> --}}
+                                        {{-- <img width="30px" src="{{ asset('http://119.63.78.98:8889/memberimg/img/'.$item->image) }}"> --}}
+                                    {{-- </td> --}}
                                     <td>{{ $item->m_card }}</td>
                                     <td>{{ $item->fname }}</td>
                                     <td>{{ $item->nationalty }}</td>

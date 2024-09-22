@@ -14,7 +14,7 @@ class CustomerController extends Controller
             ->join('products','member.package','=','products.id')
             ->where('status_code','4')
             ->select('member.*','products.product_name')
-            ->limit(10)
+            // ->limit(5)
             ->orderByDesc('member.id')
             ->get();
         return view('customers',compact('Customers'));

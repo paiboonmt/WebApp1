@@ -26,8 +26,8 @@
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td class="text-center">
-                                        <img style="border-radius: 50px" width="30px" src="{{ asset('http://172.16.0.3/fighterimg/img/' . $item->image) }}">
-                                        {{-- <img style="border-radius: 50px" width="30px" src="{{ asset('http://119.63.78.98:8889/fighterimg/img/'.$item->image) }}"> --}}
+                                        {{-- <img style="border-radius: 50px" width="30px" src="{{ asset('http://172.16.0.3/fighterimg/img/' . $item->image) }}"> --}}
+                                        <img style="border-radius: 50px" width="30px" src="{{ asset('http://119.63.78.98:8889/fighterimg/img/'.$item->image) }}">
                                     </td>
                                     <td>{{ $item->m_card }}</td>
                                     <td>{{ $item->type_training }}</td>
