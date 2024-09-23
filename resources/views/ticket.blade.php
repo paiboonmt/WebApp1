@@ -26,8 +26,10 @@
                                                             value="{{ $item->id }}">
                                                         <input type="hidden" name="name"
                                                             value="{{ $item->product_name }}">
-                                                        <input type="hidden" name="price" value="{{ $item->price }}">
-                                                        <input type="hidden" name="quantity" value="1">
+                                                        <input type="hidden" name="price"
+                                                            value="{{ $item->price }}">
+                                                        <input type="hidden" name="quantity" value="1"
+                                                            min="1">
                                                         <button type="submit" class="btn btn-sm btn-success"><i
                                                                 class="fa-solid fa-cart-shopping"></i></button>
                                                     </form>
@@ -40,7 +42,9 @@
                         </div>
                         <div class="col-6">
                             <div class="card p-1">
-                                @if(Session::has('cart') && count(Session::get('cart')) > 0)
+                                @if (Session::has('cart') && count(Session::get('cart')) > 0)
+
+                                <form action="" method="post">
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>
@@ -52,29 +56,54 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach(session('cart') as $id => $item)
+                                            @foreach (session('cart') as $id => $item)
                                                 <tr>
                                                     <td>{{ $item['name'] }}</td>
                                                     <td>{{ $item['price'] }}</td>
                                                     <td>{{ $item['quantity'] }}</td>
-                                                    <td>{{ number_format($item['price'] * $item['quantity'],0) }}</td>
+                                                    <td>{{ number_format($item['price'] * $item['quantity'], 2) }}</td>
                                                     <td>
+                                                        <div class="row">
+                                                            <div class="col-3">
+                                                                <form action="{{ route('cart.update') }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="product_id"
+                                                                        value="{{ $id }}">
+                                                                    <input type="hidden" name="quantity"
+                                                                        value="{{ $item['quantity'] }}">
+                                                                    <button type="submit"
+                                                                        class="btn btn-sm btn-warning"><i
+                                                                            class="fa-solid fa-plus"></i></button>
+                                                                </form>
+                                                            </div>
 
-
-                                                        <form action="{{ route('cart.remove') }}" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="product_id" value="{{ $id }}">
-                                                            <input type="hidden" name="quantity" value="{{ $item['quantity'] }}">
-                                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-minus"></i></button>
-                                                        </form>
+                                                            <div class="col-2">
+                                                                <form action="{{ route('cart.remove') }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="product_id"
+                                                                        value="{{ $id }}">
+                                                                    <input type="hidden" name="quantity"
+                                                                        value="{{ $item['quantity'] }}">
+                                                                    <button type="submit"
+                                                                        class="btn btn-sm btn-danger"><i
+                                                                            class="fa-solid fa-minus"></i></button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </td>
-
                                                 </tr>
-
                                             @endforeach
+                                            <tr>
+                                                <td>Total</td>
+                                                <td colspan="2"></td>
+                                                <td colspan="2">{{ number_format($total, 2) }}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
-                                    <a href="{{ route('cart.checkout') }}" class="btn btn-success">Checkout</a>
+                                    {{-- <a href="{{ route('cart.checkout') }}" class="btn btn-success">Checkout</a> --}}
+                                </form>
                                 @else
                                     <p>Your cart is empty.</p>
                                 @endif
@@ -85,4 +114,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>

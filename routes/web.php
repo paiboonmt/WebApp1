@@ -40,7 +40,8 @@ Route::middleware(['auth'])->group(function(){
     // Cart
     Route::get('/ticket',[CartController::class,'index'])->name('ticket');
     Route::post('/addToCart',[CartController::class,'addToCart'])->name('addToCart');
-    Route::post('cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
 
