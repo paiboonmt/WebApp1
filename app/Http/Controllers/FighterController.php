@@ -14,7 +14,7 @@ class FighterController extends Controller
     public function index(){
         $Fighters = DB::table('member')
             ->where('group','fighter')
-            ->limit(5)
+            // ->limit(5)
             ->orderByDesc('id')
             ->get();
         return view('fighters', compact('Fighters'));

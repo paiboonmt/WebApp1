@@ -1,12 +1,10 @@
 <?php
-
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FighterController;
 use App\Http\Controllers\ManageController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,6 +33,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/customers',[CustomerController::class,'index'])->name('customers');
     // route('customer_show')
     Route::get('/customer_show/{id}',[CustomerController::class,'show'])->name('customer_show');
+
     // route('manage')
     Route::get('/manage',[ManageController::class,'index'])->name('manage');
 

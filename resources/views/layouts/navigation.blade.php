@@ -17,20 +17,23 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+
                     <x-nav-link :href="route('fighters')" :active="request()->routeIs(['fighters','fighter_show'])">
                         {{ __('Fighters') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('customers')" :active="request()->routeIs(['customers','customer_show'])">
-                        {{ __('Customers') }}
-                    </x-nav-link>
+                    @if ( Auth::user()->role == 'admin')
+                        <x-nav-link :href="route('customers')" :active="request()->routeIs(['customers','customer_show'])">
+                            {{ __('Customers') }}
+                        </x-nav-link>
+                    @endif
 
                     @if ( Auth::user()->role == 'admin')
                         <x-nav-link :href="route('manage')" :active="request()->routeIs(['manage','fighter_create'])">
                             {{ __('Manage') }}
                         </x-nav-link>
                     @endif
-                    
+
                     @if ( Auth::user()->role == 'admin')
                         <x-nav-link :href="route('ticket')" :active="request()->routeIs('ticket')">
                             {{ __('Sale Ticket') }}
