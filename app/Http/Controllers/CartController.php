@@ -16,42 +16,76 @@ class CartController extends Controller
 
     public function addToCart( Request $request){
 
-        // dd($request);
-        $cart = session()->get('cart',[]);
-        $item = [
-            'id' => $request->input('id'),
-            'product' => $request->input('product'),
-            'price' => $request->input('price'),
-            'quantity' => $request->input('quantity', 1)
-        ];
+        $cart = session()->get('cart', []);
 
-        dd($item);
+        // Get the product ID and quantity from the request
+        $productId = $request->input('id');
+        $quantity = $request->input('quantity', 1);
 
-
-
-
-
-        $cart = Session::get('cart', []);
-        $item = DB::table('products')
-            ->where('id',$id)
-            ->get();
-   
-
-        // dd($cart);
-
-        // If item exists in cart, increment quantity
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity']++;
+        // If the item is already in the cart, update the quantity
+        if (isset($cart[$productId])) {
+            $cart[$productId]['quantity'] += $quantity;
         } else {
-            // Otherwise, add new item
-            $cart[$id] = [
-                "product_name" => $item[0]->product_name,
-                "quantity" => 1,
-                "price" => $item[0]->price,
+            // Fetch the product from the database (optional)
+            $product = DB::table('products')->where('id',$productId)->first();
+
+            // dd($product);
+
+            // Add the new item to the cart
+            $cart[$productId] = [
+                'name' => $product->product_name,
+                'price' => $product->price,
+                'quantity' => 1,
             ];
         }
 
+        // Save the cart back to the session
         session()->put('cart', $cart);
-        return redirect()->route('ticket')->with('success', 'Order placed successfully!');
-    }   
+
+        return to_route('ticket');
+
+
+    }
+
+    // Remove item from cart
+    public function remove(Request $request) {
+
+        $cart = session()->get('cart', []);
+        // Get the product ID and quantity from the request
+        $productId = $request->input('id');
+        $quantity = $request->input('quantity', 1);
+
+        if (isset($cart[$productId])) {
+            if ($quantity > 0) {
+                // Update the quantity
+                $cart[$productId]['quantity'] = $quantity;
+            } else {
+                // Remove the item from the cart if quantity is 0
+                unset($cart[$productId]);
+            }
+
+            // Save the updated cart back to the session
+            session()->put('cart', $cart);
+
+            return to_route('ticket');
+        }
+
+
+    }
+
+
+    public function checkout() {
+
+        $cart = Session::get('cart', []);
+
+        if (empty($cart)) {
+            return redirect()->route('cart.index')->with('error', 'Cart is empty!');
+        }
+
+        // Proceed with checkout logic here
+
+        Session::forget('cart'); // Clear the cart
+
+        return to_route('ticket');
+    }
 }
