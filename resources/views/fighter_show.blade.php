@@ -17,8 +17,8 @@
                     {{-- Data --}}
                     <div class="row">
                         <div class="col-4">
-                            <img id="img" src="{{ asset('http://172.16.0.3/fighterimg/img/' . $data[0]->image) }}">
-                            {{-- <img id="img" src="{{ asset('http://119.63.78.98:8889/fighterimg/img/'.$data[0]->image) }}"> --}}
+                            {{-- <img id="img" src="{{ asset('http://172.16.0.3/fighterimg/img/' . $data[0]->image) }}"> --}}
+                            <img id="img" src="{{ asset('http://119.63.78.98:8889/fighterimg/img/'.$data[0]->image) }}">
                         </div>
                         <div class="col-8">
 

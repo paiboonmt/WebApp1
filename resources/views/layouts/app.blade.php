@@ -87,6 +87,14 @@
             }
         }
     });
+    new DataTable('#products', {
+        layout: {
+            topStart: {
+                // buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                // buttons: ['excel']
+            }
+        }
+    });
 </script>
 
 </html>

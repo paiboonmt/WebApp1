@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FighterController;
@@ -12,18 +13,16 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
+require __DIR__.'/auth.php';
 
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard',[DashboardController::class ,'index'])->name('dashboard');
-
-    Route::get('/users',[UserController::class,'index'])->name('users');
-
-    // Sponsor Fighter
-    // route('fighters')
     Route::get('/fighters',[FighterController::class,'index'])->name('fighters');
     // route('fighter_show')
     Route::get('/fighter_show/{id}',[FighterController::class,'show'])->name('fighter_show');
@@ -31,7 +30,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/fighter_create',[FighterController::class,'create'])->name('fighter_create');
     // route('fighter_save')
     Route::post('/fighter_save',[FighterController::class,'store'])->name('fighter_save');
-
     // customers
     // route('customers')
     Route::get('/customers',[CustomerController::class,'index'])->name('customers');
@@ -40,13 +38,9 @@ Route::middleware('auth')->group(function(){
     // route('manage')
     Route::get('/manage',[ManageController::class,'index'])->name('manage');
 
+    // Cart
+    Route::get('/ticket',[CartController::class,'index'])->name('ticket');
+    Route::post('/addToCart',[CartController::class,'addToCart'])->name('addToCart');
 });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
