@@ -8,8 +8,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index() {
-        $Users = User::all();
-        return view('Users' , compact('Users'));
+
+    public function update(Request $request , string $id){
+        $User = User::find($id);
+        $User->role = $request->role;
+        $User->save();
+        return to_route('manage');
     }
+
 }

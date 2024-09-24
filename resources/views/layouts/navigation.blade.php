@@ -13,14 +13,17 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @if ( Auth::user()->role == 'admin'||'user' )
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endif
 
-
-                    <x-nav-link :href="route('fighters')" :active="request()->routeIs(['fighters','fighter_show'])">
-                        {{ __('Fighters') }}
-                    </x-nav-link>
+                    @if ( Auth::user()->role == 'admin'||'user' )
+                        <x-nav-link :href="route('fighters')" :active="request()->routeIs(['fighters','fighter_show'])">
+                            {{ __('Fighters') }}
+                        </x-nav-link>
+                    @endif
 
                     @if ( Auth::user()->role == 'admin')
                         <x-nav-link :href="route('customers')" :active="request()->routeIs(['customers','customer_show'])">
@@ -40,8 +43,12 @@
                         </x-nav-link>
                     @endif
 
+                    <x-dropdown-nationality></x-dropdown-nationality>
+
                 </div>
             </div>
+
+
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">

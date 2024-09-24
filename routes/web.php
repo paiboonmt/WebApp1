@@ -2,9 +2,9 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FighterController;
-use App\Http\Controllers\ManageController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,13 +36,16 @@ Route::middleware(['auth'])->group(function(){
 
     // route('manage')
     Route::get('/manage',[ManageController::class,'index'])->name('manage');
+    // route('user_update')
+    Route::post('/user_update/{id}',[UserController::class,'update'])->name('user_update');
 
     // Cart
     Route::get('/ticket',[CartController::class,'index'])->name('ticket');
+
     Route::post('/addToCart',[CartController::class,'addToCart'])->name('addToCart');
-    Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
-    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
-    Route::get('cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::put('/updateCart', [CartController::class, 'updateCart'])->name('updateCart');
+    Route::post('/cartremove', [CartController::class, 'remove'])->name('cartremove');
+    Route::get('/cart_checkout', [CartController::class, 'checkout'])->name('cart_checkout');
 
 
 });

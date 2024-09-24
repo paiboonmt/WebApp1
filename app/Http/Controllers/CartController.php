@@ -11,9 +11,7 @@ class CartController extends Controller
     public function index(){
         $products = DB::table('products')->get();
         $cart = Session::get('cart', []);
-
         $total = 0;
-
         // Loop through each item and calculate total price (quantity * price)
         foreach ($cart as $item) {
             $total += $item['quantity'] * $item['price'];
@@ -24,8 +22,8 @@ class CartController extends Controller
 
     public function addToCart( Request $request){
         $cart = session()->get('cart', []);
-        $productId = $request->input('id');
-        $quantity = $request->input('quantity', 1);
+        $productId = $request->id;
+        $quantity = $request->quantity;
         if (isset($cart[$productId])) {
             $cart[$productId]['quantity'] += $quantity;
         } else {
@@ -41,9 +39,15 @@ class CartController extends Controller
     }
 
     public function updateCart(Request $request) {
+
         $cart = session()->get('cart', []);
+
+        dd($request);
+
         $productId = $request->product_id;
+
         $quantity = $request->quantity;
+
         if (isset($cart[$productId])) {
             if ($quantity > 0) {
                 $cart[$productId]['quantity'] ++ ;

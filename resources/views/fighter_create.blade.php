@@ -10,7 +10,7 @@
                         {{-- Data --}}
                         <div class="row">
                             <div class="col-4">
-                                <img src="{{ asset('image/logo.png')}}" id="preview" width="60%">
+                                <img  id="preview" width="100%">
                                 <input type="file" name="image" id="imageUpload" accept="image/*" class="form-control">
                                 @error('image')
                                     <div class="alert alert-danger">{{ $message }}</div>

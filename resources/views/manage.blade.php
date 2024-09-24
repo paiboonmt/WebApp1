@@ -1,10 +1,10 @@
 <x-app-layout>
     <div class="p-2">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-6">
                             <div class="card mb-2">
                                 <div class="card-header bg-dark" style="color: white">
@@ -36,36 +36,47 @@
                                                 <td>{{ $frow->fname }}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm btn-primary"
-                                                        data-bs-toggle="modal" data-bs-target="#id{{ $frow->id }}"> <i class="fa-solid fa-binoculars"></i> | View
+                                                        data-bs-toggle="modal" data-bs-target="#id{{ $frow->id }}">
+                                                        <i class="fa-solid fa-binoculars"></i> | View
                                                     </button>
                                                 </td>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="id{{ $frow->id }}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="id{{ $frow->id }}"
+                                                    data-bs-backdrop="static" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-xl">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
 
                                                                 {{-- Data --}}
                                                                 <div class="row">
                                                                     <div class="col-4">
-                                                                        <img src="{{ asset('image/fighter/'.$frow->image ) }}"  width="100%">
+                                                                        <img src="{{ asset('image/fighter/' . $frow->image) }}"
+                                                                            width="100%">
                                                                     </div>
 
                                                                     <div class="col-8">
                                                                         {{-- fname --}}
                                                                         <div class="input-group input-group-sm mb-2">
-                                                                            <span class="input-group-text">Card number</span>
-                                                                            <input type="text" class="form-control" name="m_card" value="{{ $frow->m_card }}">
+                                                                            <span class="input-group-text">Card
+                                                                                number</span>
+                                                                            <input type="text" class="form-control"
+                                                                                name="m_card"
+                                                                                value="{{ $frow->m_card }}">
                                                                         </div>
 
                                                                         {{-- Visa number --}}
                                                                         <div class="input-group input-group-sm mb-2">
-                                                                            <span class="input-group-text">Visa number</span>
-                                                                            <input type="text" class="form-control"name="p_visa" value="{{ $frow->p_visa }}">
+                                                                            <span class="input-group-text">Visa
+                                                                                number</span>
+                                                                            <input type="text"
+                                                                                class="form-control"name="p_visa"
+                                                                                value="{{ $frow->p_visa }}">
                                                                         </div>
 
 
@@ -74,17 +85,24 @@
                                                                             <div class="col-4">
                                                                                 <div
                                                                                     class="input-group input-group-sm mb-2">
-                                                                                    <label class="input-group-text">Gender</label>
-                                                                                    <select class="form-select" name="sex">
-                                                                                        <option>{{ $frow->sex }}</option>
+                                                                                    <label
+                                                                                        class="input-group-text">Gender</label>
+                                                                                    <select class="form-select"
+                                                                                        name="sex">
+                                                                                        <option>{{ $frow->sex }}
+                                                                                        </option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-8">
                                                                                 <div
                                                                                     class="input-group input-group-sm mb-2">
-                                                                                    <span class="input-group-text">Full name</span>
-                                                                                    <input type="text"class="form-control"name="fname"  value="{{ $frow->fname }}">
+                                                                                    <span class="input-group-text">Full
+                                                                                        name</span>
+                                                                                    <input
+                                                                                        type="text"class="form-control"
+                                                                                        name="fname"
+                                                                                        value="{{ $frow->fname }}">
                                                                                 </div>
                                                                             </div>
 
@@ -92,21 +110,29 @@
                                                                         {{-- Email --}}
                                                                         <div class="input-group input-group-sm mb-2">
                                                                             <span class="input-group-text">Email</span>
-                                                                            <input type="text" class="form-control" name="email"  value="{{ $frow->email }}">
+                                                                            <input type="text" class="form-control"
+                                                                                name="email"
+                                                                                value="{{ $frow->email }}">
                                                                         </div>
 
 
                                                                         {{-- Phone number --}}
                                                                         <div class="input-group input-group-sm mb-2">
-                                                                            <span class="input-group-text">Phone number</span>
-                                                                            <input type="text" class="form-control"name="phone"  value="{{ $frow->phone }}">
+                                                                            <span class="input-group-text">Phone
+                                                                                number</span>
+                                                                            <input type="text"
+                                                                                class="form-control"name="phone"
+                                                                                value="{{ $frow->phone }}">
                                                                         </div>
 
 
                                                                         {{-- Fighter name --}}
                                                                         <div class="input-group input-group-sm mb-2">
-                                                                            <span class="input-group-text">Fighter name</span>
-                                                                            <input type="text" class="form-control" name="fightname"  value="{{ $frow->fightname }}">
+                                                                            <span class="input-group-text">Fighter
+                                                                                name</span>
+                                                                            <input type="text" class="form-control"
+                                                                                name="fightname"
+                                                                                value="{{ $frow->fightname }}">
                                                                         </div>
 
                                                                         {{-- Nationality , Birthday --}}
@@ -114,9 +140,13 @@
                                                                             <div class="col-6">
                                                                                 <div
                                                                                     class="input-group input-group-sm mb-2">
-                                                                                    <label class="input-group-text">Nationality</label>
-                                                                                    <select class="form-select" name="nationality">
-                                                                                        <option>{{ $frow->nationality }}</option>
+                                                                                    <label
+                                                                                        class="input-group-text">Nationality</label>
+                                                                                    <select class="form-select"
+                                                                                        name="nationality">
+                                                                                        <option>
+                                                                                            {{ $frow->nationality }}
+                                                                                        </option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -125,23 +155,31 @@
                                                                                     class="input-group input-group-sm mb-2">
                                                                                     <span
                                                                                         class="input-group-text">Birthday</span>
-                                                                                    <input type="date" class="form-control"name="birthday" value="{{ $frow->birthday }}">
+                                                                                    <input type="date"
+                                                                                        class="form-control"name="birthday"
+                                                                                        value="{{ $frow->birthday }}">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         {{-- Emergency --}}
                                                                         <div class="input-group input-group-sm mb-2">
-                                                                            <span class="input-group-text">Emergency</span>
-                                                                            <input type="text" class="form-control" name="emergency" value="{{ $frow->emergency }}">
+                                                                            <span
+                                                                                class="input-group-text">Emergency</span>
+                                                                            <input type="text" class="form-control"
+                                                                                name="emergency"
+                                                                                value="{{ $frow->emergency }}">
                                                                         </div>
                                                                         {{-- Start Training , Expriy , Type of training --}}
                                                                         <div class="row">
                                                                             <div class="col-4">
                                                                                 <div
                                                                                     class="input-group input-group-sm mb-2">
-                                                                                    <span
-                                                                                        class="input-group-text">Start Training</span>
-                                                                                    <input type="date" class="form-control" name="sta_date" value="{{ $frow->sta_date }}">
+                                                                                    <span class="input-group-text">Start
+                                                                                        Training</span>
+                                                                                    <input type="date"
+                                                                                        class="form-control"
+                                                                                        name="sta_date"
+                                                                                        value="{{ $frow->sta_date }}">
                                                                                 </div>
                                                                             </div>
 
@@ -149,8 +187,12 @@
                                                                             <div class="col-4">
                                                                                 <div
                                                                                     class="input-group input-group-sm mb-2">
-                                                                                    <span class="input-group-text">Expriy</span>
-                                                                                    <input type="date"class="form-control"name="exp_date" value="{{ $frow->exp_date }}">
+                                                                                    <span
+                                                                                        class="input-group-text">Expriy</span>
+                                                                                    <input
+                                                                                        type="date"class="form-control"
+                                                                                        name="exp_date"
+                                                                                        value="{{ $frow->exp_date }}">
                                                                                 </div>
                                                                             </div>
 
@@ -158,9 +200,14 @@
                                                                             <div class="col-4">
                                                                                 <div
                                                                                     class="input-group input-group-sm mb-2">
-                                                                                    <label class="input-group-text">Type of training</label>
-                                                                                    <select class="form-select" name="type_training" >
-                                                                                        <option>{{ $frow->type_training }}</option>
+                                                                                    <label
+                                                                                        class="input-group-text">Type
+                                                                                        of training</label>
+                                                                                    <select class="form-select"
+                                                                                        name="type_training">
+                                                                                        <option>
+                                                                                            {{ $frow->type_training }}
+                                                                                        </option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -213,7 +260,75 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-6">
+                            <div class="card p-2">
+                                <div class="card-header bg-dark" style="color: white">
+                                    User Setting
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>User</th>
+                                                <th>Role</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($Users as $user)
+                                                <tr>
+                                                    <td>{{ $user->id }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->role }}</td>
+                                                    <td>
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                                            data-bs-target="#id{{ $user->id }}">
+                                                            <i class="fa-solid fa-user-pen"></i>
+                                                        </button>
 
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="id{{ $user->id }}"
+                                                            data-bs-backdrop="static" data-bs-keyboard="false"
+                                                            tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $user->name }}</h1>
+                                                                        <button type="button" class="btn-close"data-bs-dismiss="modal"aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                       <form action="{{ route('user_update',$user->id) }}" method="post">
+                                                                            @csrf
+                                                                            <div class="input-group input-group-sm mb-2">
+                                                                                <label class="input-group-text">User role</label>
+                                                                                <select class="form-select" name="role">
+                                                                                    <option selected="{{ $user->role }}">{{ $user->role }}</option>
+                                                                                    <option value="admin">Admin</option>
+                                                                                    <option value="user">User</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div>
+                                                                                <button type="submit" class="btn btn-success">Update</button>
+                                                                                <button type="button" class="btn btn-secondary"
+                                                                                    data-bs-dismiss="modal">Close
+                                                                                </button>
+                                                                            </div>
+                                                                       </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
