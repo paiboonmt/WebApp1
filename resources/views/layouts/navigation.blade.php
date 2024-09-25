@@ -43,7 +43,9 @@
                         </x-nav-link>
                     @endif
 
-                    <x-dropdown-nationality></x-dropdown-nationality>
+                    @if ( Auth::user()->role == 'admin')
+                        <x-dropdown-nationality></x-dropdown-nationality>
+                    @endif
 
                 </div>
             </div>
