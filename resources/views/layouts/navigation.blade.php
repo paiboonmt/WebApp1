@@ -25,7 +25,7 @@
                         </x-nav-link>
                     @endif
 
-                    @if ( Auth::user()->role == 'admin')
+                    @if ( Auth::user()->role == 'admin'||'user' )
                         <x-nav-link :href="route('customers')" :active="request()->routeIs(['customers','customer_show'])">
                             {{ __('Customers') }}
                         </x-nav-link>
