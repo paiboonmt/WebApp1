@@ -91,6 +91,8 @@ class CartController extends Controller
         Session::forget('discount');
         Session::forget('sub');
         Session::forget('tax');
+        Session::forget('tax3');
+        Session::forget('sub_total');
         return to_route('ticket');
     }
 

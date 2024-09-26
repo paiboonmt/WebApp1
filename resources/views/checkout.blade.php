@@ -106,14 +106,22 @@
                                         <input type="hidden" name="discount" value="{{ session('discount') }}">
                                         <input type="hidden" name="sub" value="{{ session('sub') }}">
                                     @endif
+
+                                    @if (session('tax3'))
+                                        {{ session('tax3') }}
+                                    @endif
+
                                 </div>
-                                <div class="col-3">
-                                    <div class="input-group">
-                                        <label class="input-group-text">Tax</label>
-                                        <input type="text" name="tax3" value="3" readonly class="form-control">
-                                        <button class="btn btn-info" type="submit">Add</button>
+                                @if (session('tax3'))
+                                @else
+                                    <div class="col-3">
+                                        <div class="input-group">
+                                            <label class="input-group-text">Tax</label>
+                                            <input type="text" name="tax3" value="3" readonly class="form-control">
+                                            <button class="btn btn-info" type="submit">Add</button>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         </form>
 
