@@ -48,6 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::post('addDiscount', [CartController::class,'addDiscount'])->name('addDiscount');
     Route::get('removeDiscount', [CartController::class,'removeDiscount'])->name('removeDiscount');
     Route::post('addTax', [CartController::class,'addTax'])->name('addTax');
+    Route::post('removeTex', [CartController::class,'removeTex'])->name('removeTex');
+    Route::post('addPayment', [CartController::class,'addPayment'])->name('addPayment');
+    Route::post('removePayment', [CartController::class,'removePayment'])->name('removePayment');
+    Route::post('removeAll',[CartController::class,'removeAll'])->name('removeAll');
 });
 
 require __DIR__.'/auth.php';

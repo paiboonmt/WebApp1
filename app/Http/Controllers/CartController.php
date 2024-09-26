@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 use App\Models\CartItem;
+use Illuminate\Container\Attributes\Tag;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -15,7 +16,6 @@ class CartController extends Controller
         $products = DB::table('products')->get();
         $cart = Session::get('cart', []);
         $total = 0;
-        // Loop through each item and calculate total price (quantity * price)
         foreach ($cart as $item) {
             $total += $item['quantity'] * $item['price'];
         }
@@ -41,7 +41,7 @@ class CartController extends Controller
         return to_route('ticket');
     }
 
-    public function updateCart(Request $request , string $id) {
+    public function updateCart(Request $request) {
         $cart = session()->get('cart', []);
         $productId = $request->product_id;
         $quantity = $request->quantity;
@@ -58,7 +58,6 @@ class CartController extends Controller
     }
 
     public function remove(Request $request) {
-
         $productId = $request->product_id;
         $quantity = $request->quantity;
         $cart = session()->get('cart', []);
@@ -72,27 +71,30 @@ class CartController extends Controller
             }
             session()->put('cart', $cart);
         }
-
         return to_route('ticket');
     }
 
     public function checkout() {
+
+        $payments = DB::table('payment')->get();
+
         $cart = session()->get('cart', []);
         $total = 0;
         foreach ($cart as $item) {
             $total += $item['quantity'] * $item['price'];
         }
-        return view('checkout',compact('cart','total'));
+        return view('checkout',compact('cart','total','payments'));
     }
 
     public function cancelcart() {
-        $cart = Session::get('cart', []);
         Session::forget('cart');
         Session::forget('discount');
         Session::forget('sub');
         Session::forget('tax');
         Session::forget('tax3');
         Session::forget('sub_total');
+        Session::forget('sub_discount');
+        Session::forget('payment');
         return to_route('ticket');
     }
 
@@ -100,7 +102,7 @@ class CartController extends Controller
         $request->validate([
             'discount' => 'required'
         ]);
-        $tax = $request->discount;
+        $sub_discount = $request->discount;
         $cart = session()->get('cart');
         $discount = $request->discount;
         $total = 0;
@@ -109,7 +111,7 @@ class CartController extends Controller
         }
         $discount = ( $total * $discount) / 100;
         $sub = $total - $discount;
-        session(['discount' => $discount, 'sub' => $sub , 'tax' => $tax]);
+        session(['discount' => $discount, 'sub' => $sub , 'sub_discount' => $sub_discount]);
         return to_route('cart_checkout');
     }
 
@@ -121,14 +123,53 @@ class CartController extends Controller
 
     public function addTax(Request $request){
 
-        $tax = $request->session()->get('tax');
-        $sub = $request->session()->get('sub');
-        $cart = session()->get('cart');
-        $tax3 = ($sub * $tax) / 100 ;
-        $sub_total = $sub + $tax3;
+        if ( $request->sub != 0) {
+            $tax3 = $request->tax3;
+            $sub = $request->sub;
+            $tax3 = $sub * $tax3 / 100;
+            $sub = $sub + $tax3;
+            session(['tax3' => $tax3, 'sub' => $sub]);
+            return to_route('cart_checkout');
+        } else {
+            $tax3 = $request->tax3;
+            $sub = $request->sub;
+            $tax3 = $sub * $tax3 / 100;
+            $sub = $sub + $tax3;
+            session(['tax3' => $tax3, 'sub' => $sub]);
+            return to_route('cart_checkout');
+        }
 
-        session(['tax3' => $tax3, 'sub_total' => $sub_total]);
+        
+    }
+
+    public function removeTex(Request $request){
+        $tax3 = $request->tax3;
+        $sub  = $request->sub;
+        $sub = $sub - $tax3;
+        Session::forget('tax3');
+        // Session::forget('sub');
+        session(['sub' => $sub]);
         return to_route('cart_checkout');
+    }
 
+    public function addPayment(Request $request){
+        $payment = $request->payment;
+        session(['payment'=>$payment]);
+        return to_route('cart_checkout');
+    }
+
+    public function removePayment(){
+        Session::forget('payment');
+        return to_route('cart_checkout');
+    }
+
+    public function removeAll(){
+        // dd(session()->all());
+        Session::forget('payment');
+        Session::forget('sub_discount');
+        Session::forget('sub');
+        Session::forget('tax3');
+        Session::forget('discount');
+        return to_route('cart_checkout');
     }
 }

@@ -65,7 +65,7 @@
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <form action="{{ route('updateCart', $id ) }}" method="post">
+                                                                <form action="{{ route('updateCart') }}" method="post">
                                                                     @csrf
                                                                     <input
                                                                         type="hidden"
