@@ -38,7 +38,7 @@
                     @endif
 
                     @if ( Auth::user()->role == 'admin')
-                        <x-nav-link :href="route('ticket')" :active="request()->routeIs('ticket')">
+                        <x-nav-link :href="route('ticket')" :active="request()->routeIs(['ticket','cart_checkout'])">
                             {{ __('Sale Ticket') }}
                         </x-nav-link>
                     @endif

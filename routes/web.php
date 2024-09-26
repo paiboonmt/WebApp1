@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ManageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FighterController;
 use App\Http\Controllers\CartController;
@@ -15,11 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-require __DIR__.'/auth.php';
-
-Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard',[DashboardController::class ,'index'])->name('dashboard');
     Route::get('/fighters',[FighterController::class,'index'])->name('fighters');
     // route('fighter_show')
@@ -43,11 +40,15 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/ticket',[CartController::class,'index'])->name('ticket');
 
     Route::post('/addToCart',[CartController::class,'addToCart'])->name('addToCart');
-    Route::put('/updateCart', [CartController::class, 'updateCart'])->name('updateCart');
+    Route::post('/updateCart', [CartController::class, 'updateCart'])->name('updateCart');
     Route::post('/cartremove', [CartController::class, 'remove'])->name('cartremove');
     Route::get('/cart_checkout', [CartController::class, 'checkout'])->name('cart_checkout');
+    Route::get('/cancelcart', [CartController::class, 'cancelcart'])->name('cancelcart');
 
-
+    Route::post('addDiscount', [CartController::class,'addDiscount'])->name('addDiscount');
+    Route::get('removeDiscount', [CartController::class,'removeDiscount'])->name('removeDiscount');
+    Route::post('addTax', [CartController::class,'addTax'])->name('addTax');
 });
 
+require __DIR__.'/auth.php';
 
