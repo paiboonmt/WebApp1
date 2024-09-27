@@ -130,7 +130,7 @@ class CartController extends Controller
             return to_route('cart_checkout');
         }
 
-        
+
     }
 
     public function removeTex(Request $request){
@@ -251,9 +251,40 @@ class CartController extends Controller
     }
 
     public function complete(Request $request){
+
         // dd($request->total,session()->all());
 
-        $total = $request->input('total');
+        // "_token" => "YKvJFRgIgmgNDv91dfDjYadhhFwNDoDIUd1GdTag"
+        // "_flash" => array:2 [▶]
+        // "_previous" => array:1 [▶]
+        // "login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d" => 1
+        // "cart" => array:1 [▶]
+
+        // "pay_name" => "Cash"
+        // "payment_value" => "7"
+        // "vat" => 315
+        // "total" => 4815
+
+        // "sub_pay_name" => "VisaCard"
+        // "sub_payment" => "3"
+        // "vat_sub" => 144.45
+        // "sub_total" => 4959.45
+
+        // payment
+        $Origin_total = $request->input('total');
+        $pay_name = session()->get('pay_name');
+        $payment_value = session()->get('payment_value');
+        $vat = session()->get('vat');
+        $total = session()->get('total');
+
+        // sub_payment
+        $sub_pay_name = session()->get('sub_pay_name');
+        $sub_payment = session()->get('sub_payment');
+        $vat_sub = session()->get('vat_sub');
+        $sub_total = session()->get('sub_total');
+
+        // dd($payment_value);
+
         $cart = session()->get('cart');
         foreach (  $cart as $item) {
 
