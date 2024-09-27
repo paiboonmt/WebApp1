@@ -52,6 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::post('addPayment', [CartController::class,'addPayment'])->name('addPayment');
     Route::post('removePayment', [CartController::class,'removePayment'])->name('removePayment');
     Route::post('removeAll',[CartController::class,'removeAll'])->name('removeAll');
+    Route::post('addSubPayment',[CartController::class,'addSubPayment'])->name('addSubPayment');
+    Route::post('removeSubPayment',[CartController::class,'removeSubPayment'])->name('removeSubPayment');
+    Route::post('complete',[CartController::class,'complete'])->name('complete');
 });
 
 require __DIR__.'/auth.php';

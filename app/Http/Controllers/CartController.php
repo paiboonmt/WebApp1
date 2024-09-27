@@ -78,24 +78,15 @@ class CartController extends Controller
 
         $payments = DB::table('payment')->get();
 
+        $vat7 = DB::table('payment')->where('value','=','7')->get();
+        $vat3 = DB::table('payment')->where('value','=','3')->get();
+
         $cart = session()->get('cart', []);
         $total = 0;
         foreach ($cart as $item) {
             $total += $item['quantity'] * $item['price'];
         }
-        return view('checkout',compact('cart','total','payments'));
-    }
-
-    public function cancelcart() {
-        Session::forget('cart');
-        Session::forget('discount');
-        Session::forget('sub');
-        Session::forget('tax');
-        Session::forget('tax3');
-        Session::forget('sub_total');
-        Session::forget('sub_discount');
-        Session::forget('payment');
-        return to_route('ticket');
+        return view('checkout',compact('cart','total','payments','vat7','vat3'));
     }
 
     public function addDiscount(Request $request){
@@ -153,13 +144,54 @@ class CartController extends Controller
     }
 
     public function addPayment(Request $request){
-        $payment = $request->payment;
-        session(['payment'=>$payment]);
-        return to_route('cart_checkout');
+
+        // dd($request);
+
+        $total = $request->total;
+
+        $request->validate([
+            'payment_value' => 'required',
+            'pay_name' => 'required'
+        ]);
+
+        if ( $request->payment_value == 7) {
+            // dd($request->pay_name,$request->payment_value , $total);
+            $vat = ( $total * $request->payment_value) / 100 ;
+            $total = $total + $vat;
+            session([
+                'vat' => $vat,
+                'total' => $total,
+                'pay_name' => $request->pay_name,
+                'payment_value' => $request->payment_value,
+            ]);
+
+            return to_route('cart_checkout');
+
+        } if ( $request->payment_value == 3) {
+            // dd($request->pay_name,$request->payment_value , $total);
+            $vat = ( $total * $request->payment_value) / 100 ;
+            $total = $total + $vat;
+            session([
+                'vat' => $vat,
+                'total' => $total,
+                'pay_name' => $request->pay_name,
+                'payment_value' => $request->payment_value,
+            ]);
+            return to_route('cart_checkout');
+
+        } else {
+            dd($request->pay_name,$request->payment_value);
+        }
+
     }
 
     public function removePayment(){
-        Session::forget('payment');
+        Session::forget('vat');
+        Session::forget('total');
+        Session::forget('pay_name');
+        Session::forget('payment_value');
+        Session::forget('vat_sub');
+        Session::forget('sub_total');
         return to_route('cart_checkout');
     }
 
@@ -170,6 +202,76 @@ class CartController extends Controller
         Session::forget('sub');
         Session::forget('tax3');
         Session::forget('discount');
+        Session::forget('sub_total');
+        Session::forget('sub_payment');
         return to_route('cart_checkout');
+    }
+
+    public function addSubPayment(Request $request){
+        $sub_payment = $request->sub_payment;
+        $pay_name = $request->pay_name;
+        $total = $request->total;
+        $vat_sub = ($total * $sub_payment)/100;
+        $sub_total = $total + $vat_sub;
+        session([
+            'sub_pay_name' => $pay_name,
+            'sub_payment' => $sub_payment,
+            'vat_sub' => $vat_sub,
+            'sub_total' => $sub_total,
+        ]);
+        return to_route('cart_checkout');
+    }
+
+    public function removeSubPayment(){
+        Session::forget('sub_pay_name');
+        Session::forget('sub_payment');
+        Session::forget('vat_sub');
+        Session::forget('sub_total');
+        return to_route('cart_checkout');
+    }
+
+    public function cancelcart() {
+        // dd(session()->all());
+        Session::forget('cart');
+        Session::forget('vat_sub');
+        Session::forget('sub_pay_name');
+        Session::forget('sub_payment');
+        Session::forget('payment_value');
+        Session::forget('pay_name');
+        Session::forget('total');
+        Session::forget('discount');
+        Session::forget('sub');
+        Session::forget('vat');
+        Session::forget('tax');
+        Session::forget('tax3');
+        Session::forget('sub_total');
+        Session::forget('sub_discount');
+        Session::forget('payment');
+        return to_route('ticket');
+    }
+
+    public function complete(Request $request){
+        // dd($request->total,session()->all());
+
+        $total = $request->input('total');
+        $cart = session()->get('cart');
+        foreach (  $cart as $item) {
+
+            CartItem::create([
+                'user_id' => Auth::id(),
+                'product_id' => $item['id'],
+                'product_name' => $item['name'],
+                'price' => $item['price'],
+                'quantity' => $item['quantity'],
+            ]);
+        }
+
+        Session::forget('cart');
+        Session::forget('vat');
+        Session::forget('total');
+        Session::forget('pay_name');
+        Session::forget('payment_value');
+
+        return to_route('ticket');
     }
 }
