@@ -283,7 +283,13 @@ class CartController extends Controller
 
     public function complete(Request $request){
 
-        dd($request->total,session()->all());
+
+
+        $request->validate([
+            'customer' => 'required',
+        ]);
+
+        dd($request,session()->all());
 
         // payment
         $Origin_total = $request->input('total');
