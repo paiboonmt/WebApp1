@@ -145,8 +145,6 @@ class CartController extends Controller
 
     public function addPayment(Request $request){
 
-        // dd($request);
-
         $total = $request->total;
 
         $request->validate([
@@ -154,34 +152,67 @@ class CartController extends Controller
             'pay_name' => 'required'
         ]);
 
-        if ( $request->payment_value == 7) {
-            // dd($request->pay_name,$request->payment_value , $total);
-            $vat = ( $total * $request->payment_value) / 100 ;
-            $total = $total + $vat;
-            session([
-                'vat' => $vat,
-                'total' => $total,
-                'pay_name' => $request->pay_name,
-                'payment_value' => $request->payment_value,
-            ]);
+        $discount = session()->get('discount');
+        $total = $total - $discount;
 
-            return to_route('cart_checkout');
+        if ( session('sub_discount') ) {
 
-        } if ( $request->payment_value == 3) {
-            // dd($request->pay_name,$request->payment_value , $total);
-            $vat = ( $total * $request->payment_value) / 100 ;
-            $total = $total + $vat;
-            session([
-                'vat' => $vat,
-                'total' => $total,
-                'pay_name' => $request->pay_name,
-                'payment_value' => $request->payment_value,
-            ]);
-            return to_route('cart_checkout');
-
+            if ( $request->payment_value == 7) {
+                $vat = ( $total * $request->payment_value) / 100 ;
+                $total = $total + $vat;
+                session([
+                    'vat' => $vat,
+                    'total' => $total,
+                    'pay_name' => $request->pay_name,
+                    'payment_value' => $request->payment_value,
+                ]);
+                return to_route('cart_checkout');
+    
+            }elseif ( $request->payment_value == 3) {
+                $vat = ( $total * $request->payment_value) / 100 ;
+                $total = $total + $vat;
+                session([
+                    'vat' => $vat,
+                    'total' => $total,
+                    'pay_name' => $request->pay_name,
+                    'payment_value' => $request->payment_value,
+                ]);
+                return to_route('cart_checkout');
+    
+            } else {
+                dd($request->pay_name,$request->payment_value);
+            }
         } else {
-            dd($request->pay_name,$request->payment_value);
+            if ( $request->payment_value == 7) {
+                $vat = ( $total * $request->payment_value) / 100 ;
+                $total = $total + $vat;
+                session([
+                    'vat' => $vat,
+                    'total' => $total,
+                    'pay_name' => $request->pay_name,
+                    'payment_value' => $request->payment_value,
+                ]);
+    
+                return to_route('cart_checkout');
+    
+            } elseif ( $request->payment_value == 3) {
+                // dd($request->pay_name,$request->payment_value , $total);
+                $vat = ( $total * $request->payment_value) / 100 ;
+                $total = $total + $vat;
+                session([
+                    'vat' => $vat,
+                    'total' => $total,
+                    'pay_name' => $request->pay_name,
+                    'payment_value' => $request->payment_value,
+                ]);
+                return to_route('cart_checkout');
+    
+            } else {
+                dd($request->pay_name,$request->payment_value);
+            }
         }
+
+        
 
     }
 
@@ -287,7 +318,6 @@ class CartController extends Controller
 
         $cart = session()->get('cart');
         foreach (  $cart as $item) {
-
             CartItem::create([
                 'user_id' => Auth::id(),
                 'product_id' => $item['id'],

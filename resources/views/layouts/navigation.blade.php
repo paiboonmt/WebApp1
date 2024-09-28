@@ -44,7 +44,9 @@
                     @endif
 
                     @if ( Auth::user()->role == 'admin')
-                        <x-dropdown-nationality></x-dropdown-nationality>
+                        <x-nav-link :href="route('ticket')" :active="request()->routeIs(['products'])">
+                            {{ __('Products') }}
+                        </x-nav-link>
                     @endif
 
                 </div>
