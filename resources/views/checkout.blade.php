@@ -288,6 +288,15 @@
                                     </div>
                                 @endif
 
+                                <div class="row py-1">
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 20px"></textarea>
+                                            <label for="floatingTextarea2">Customer name</label>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {{-- add Comments --}}
                                 <div class="row py-1">
                                     <div class="col">

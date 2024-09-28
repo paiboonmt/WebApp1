@@ -167,7 +167,7 @@ class CartController extends Controller
                     'payment_value' => $request->payment_value,
                 ]);
                 return to_route('cart_checkout');
-    
+
             }elseif ( $request->payment_value == 3) {
                 $vat = ( $total * $request->payment_value) / 100 ;
                 $total = $total + $vat;
@@ -178,7 +178,7 @@ class CartController extends Controller
                     'payment_value' => $request->payment_value,
                 ]);
                 return to_route('cart_checkout');
-    
+
             } else {
                 dd($request->pay_name,$request->payment_value);
             }
@@ -192,9 +192,9 @@ class CartController extends Controller
                     'pay_name' => $request->pay_name,
                     'payment_value' => $request->payment_value,
                 ]);
-    
+
                 return to_route('cart_checkout');
-    
+
             } elseif ( $request->payment_value == 3) {
                 // dd($request->pay_name,$request->payment_value , $total);
                 $vat = ( $total * $request->payment_value) / 100 ;
@@ -206,13 +206,13 @@ class CartController extends Controller
                     'payment_value' => $request->payment_value,
                 ]);
                 return to_route('cart_checkout');
-    
+
             } else {
                 dd($request->pay_name,$request->payment_value);
             }
         }
 
-        
+
 
     }
 
@@ -283,23 +283,7 @@ class CartController extends Controller
 
     public function complete(Request $request){
 
-        // dd($request->total,session()->all());
-
-        // "_token" => "YKvJFRgIgmgNDv91dfDjYadhhFwNDoDIUd1GdTag"
-        // "_flash" => array:2 [▶]
-        // "_previous" => array:1 [▶]
-        // "login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d" => 1
-        // "cart" => array:1 [▶]
-
-        // "pay_name" => "Cash"
-        // "payment_value" => "7"
-        // "vat" => 315
-        // "total" => 4815
-
-        // "sub_pay_name" => "VisaCard"
-        // "sub_payment" => "3"
-        // "vat_sub" => 144.45
-        // "sub_total" => 4959.45
+        dd($request->total,session()->all());
 
         // payment
         $Origin_total = $request->input('total');
@@ -312,12 +296,11 @@ class CartController extends Controller
         $sub_pay_name = session()->get('sub_pay_name');
         $sub_payment = session()->get('sub_payment');
         $vat_sub = session()->get('vat_sub');
-        $sub_total = session()->get('sub_total');
+        $sub_total = session()->get('sub_total'); // ยอดรวมทั้งหมด
 
         // dd($payment_value);
-
         $cart = session()->get('cart');
-        foreach (  $cart as $item) {
+        foreach ($cart as $item) {
             CartItem::create([
                 'user_id' => Auth::id(),
                 'product_id' => $item['id'],
@@ -328,11 +311,17 @@ class CartController extends Controller
         }
 
         Session::forget('cart');
+        Session::forget('discount');
+        Session::forget('sub');
+        Session::forget('sub_discount');
         Session::forget('vat');
         Session::forget('total');
         Session::forget('pay_name');
         Session::forget('payment_value');
-
+        Session::forget('sub_pay_name');
+        Session::forget('sub_payment');
+        Session::forget('vat_sub');
+        Session::forget('sub_total');
         return to_route('ticket');
     }
 }
