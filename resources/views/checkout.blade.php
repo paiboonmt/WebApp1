@@ -323,17 +323,18 @@
                                             </div>
                                         </div>
 
-                                     <div class="row py-3">
-                                        <div class="col-6">
-                                            <a href="{{ route('cancelcart') }}" class="btn btn-danger form-control">Remove</a>
+                                        <div class="row py-3">
+                                            <div class="col-6">
+                                                <a href="{{ route('cancelcart') }}" class="btn btn-danger form-control">Remove</a>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="hidden" name="total" value="{{ $total }}">
+                                                <button class="btn btn-success form-control" type="submit">Save complete</button>
+                                            </div>
                                         </div>
-                                        <div class="col-6">
-                                            <input type="hidden" name="total" value="{{ $total }}">
-                                            <button class="btn btn-success form-control" type="submit">Save complete</button>
-                                        </div>
-                                    </div>
-                                    
-                                </form>
+
+                                        
+                                    </form>
 
                                 {{-- ถ้าไม่มีส่วนลดให้ทำงานหลังจาก else --}}
                             @else
