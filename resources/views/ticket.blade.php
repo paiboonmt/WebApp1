@@ -112,4 +112,16 @@
         </div>
     </div>
 
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                timer: 2000, // optional auto-close timer
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+
 </x-app-layout>

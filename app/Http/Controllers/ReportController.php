@@ -12,4 +12,12 @@ class ReportController extends Controller
         $ticketReport = Cart_orders::get();
         return view('report_index',compact('ticketReport'));
     }
+
+    public function dastroy($id){
+
+        $Order = Cart_orders::find($id);
+        $Order->delete();
+
+        return view('report_index')->with('success','Delete data success fully');
+    }
 }

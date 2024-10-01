@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function index(){
+    public function index() {
         $products = DB::table('products')->get();
         $cart = Session::get('cart', []);
         $total = 0;
@@ -318,7 +318,7 @@ class CartController extends Controller
         $pay_name = session('pay_name'); // VisaCard
         $payment_value = session('payment_value'); // 3
 
-        $Cart_orders = Cart_orders::create([
+        Cart_orders::create([
             'ref_order_id' => $cardNumber,
             'customer' => $customer,
             'payment' => $pay_name,
@@ -370,6 +370,7 @@ class CartController extends Controller
         Session::forget('sub_payment');
         Session::forget('vat_sub');
         Session::forget('sub_total');
-        return to_route('ticket');
+
+        return to_route('ticket')->with('success','Save data Successfully.');
     }
 }
