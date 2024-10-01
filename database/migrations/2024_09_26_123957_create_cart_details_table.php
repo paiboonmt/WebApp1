@@ -11,13 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cart_items', function (Blueprint $table) {
+        Schema::create('cart_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('product_id');
-            $table->string('product_name');
+            $table->string('ref_order_id');
+            $table->string('customer');
+            $table->string('payment');
+            $table->string('discount');
+            $table->string('vat3');
+            $table->string('vat7');
             $table->double('price');
-            $table->string('quantity');
+            $table->string('comment');
+            $table->string('sdate');
+            $table->string('edate');
+            $table->string('total');
+            $table->string('user_id');
             $table->timestamps();
         });
     }

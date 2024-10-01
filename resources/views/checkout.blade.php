@@ -121,11 +121,14 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Payment</span>
                                                         <select class="form-control" id="payment" name="payment_value" onchange="updatePayName()">
-                                                            <option> --Choose--</option>
+                                                            <option> --Choose-- </option>
                                                             @foreach ($payments as $payment)
                                                                 <option value="{{ $payment->value }}" data-name="{{ $payment->pay_name }}">{{ $payment->pay_name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        @error('pay_name')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                         <input type="hidden" id="pay_name" name="pay_name">
                                                         <input type="hidden" name="total" value="{{ $total }}">
                                                         <script>
@@ -291,20 +294,16 @@
                                     <form action="{{ route('complete') }}" method="post">
                                         @csrf
 
-                                        @php
-                                            $card = rand(mikrotime());
-                                        @endphp
-
-                                        <div class="input-group mb-3">
+                                        <div class="input-group py-1">
                                             <span class="input-group-text" id="basic-addon1">Number</span>
-                                            <input type="text" name="card" class="form-control" placeholder="card" value="{{ $card }}">
+                                            <input type="text" name="cardNumber" class="form-control" placeholder="card" value="{{ $cardNumber }}">
                                         </div>
 
                                         {{-- Customer name --}}
                                         <div class="row py-1">
                                             <div class="col">
                                                 <div class="form-floating">
-                                                    <textarea class="form-control" name="customer" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 20px">{{ old('customer') }}</textarea>
+                                                    <textarea class="form-control" name="customer" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 20px">{{ old('customer') }}Paiboon Yaniwong</textarea>
                                                     <label for="floatingTextarea2">Customer name</label>
                                                     @error('customer')
                                                         <p class="text-danger">{{ $message }}</p>
@@ -317,13 +316,29 @@
                                         <div class="row py-1">
                                             <div class="col">
                                                 <div class="form-floating">
-                                                    <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                                    <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos doloribus perspiciatis magni corrupti amet, corporis deserunt nostrum earum eius architecto?</textarea>
                                                     <label for="floatingTextarea2">Comments</label>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="row py-3">
+                                        {{-- Sdate Edate --}}
+                                        <div class="row py-1">
+                                            <div class="col-6">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">Start</span>
+                                                    <input type="date" name="sdate" value="{{ date('Y-m-d') }}" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1">Start</span>
+                                                    <input type="date" name="edate" value="{{ date('Y-m-d') }}" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row py-1">
                                             <div class="col-6">
                                                 <a href="{{ route('cancelcart') }}" class="btn btn-danger form-control">Remove</a>
                                             </div>
@@ -333,7 +348,8 @@
                                             </div>
                                         </div>
 
-                                        
+
+
                                     </form>
 
                                 {{-- ถ้าไม่มีส่วนลดให้ทำงานหลังจาก else --}}

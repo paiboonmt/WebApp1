@@ -6,6 +6,7 @@ use App\Http\Controllers\FighterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -55,6 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::post('addSubPayment',[CartController::class,'addSubPayment'])->name('addSubPayment');
     Route::post('removeSubPayment',[CartController::class,'removeSubPayment'])->name('removeSubPayment');
     Route::post('complete',[CartController::class,'complete'])->name('complete');
+
+    // route('report_index');
+    Route::get('report_index',[ReportController::class,'index'])->name('report_index');
 });
 
 require __DIR__.'/auth.php';

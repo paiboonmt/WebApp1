@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
-use App\Models\CartItem;
+use Illuminate\Support\Carbon;
+use App\Models\Cart_orders;
 use Illuminate\Container\Attributes\Tag;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,7 +77,6 @@ class CartController extends Controller
     public function checkout() {
 
         $payments = DB::table('payment')->get();
-
         $vat7 = DB::table('payment')->where('value','=','7')->get();
         $vat3 = DB::table('payment')->where('value','=','3')->get();
 
@@ -86,7 +85,10 @@ class CartController extends Controller
         foreach ($cart as $item) {
             $total += $item['quantity'] * $item['price'];
         }
-        return view('checkout',compact('cart','total','payments','vat7','vat3'));
+
+        $cardNumber = Carbon::now()->format('dmYHis');
+
+        return view('checkout',compact('cart','total','payments','vat7','vat3','cardNumber'));
     }
 
     public function addDiscount(Request $request){
@@ -283,13 +285,53 @@ class CartController extends Controller
 
     public function complete(Request $request){
 
-
-
         $request->validate([
             'customer' => 'required',
+            'total' => 'required',
         ]);
 
-        dd($request,session()->all());
+        // dd($request->input(),session()->all());
+
+        $cardNumber = $request->cardNumber;
+        $customer = $request->customer;
+        $comment = $request->comment;
+        $sdate = $request->sdate;
+        $edate = $request->edate;
+        $price = $request->total;
+
+        $discount = session('discount'); // 60.0
+        $sub = session('sub'); // 1940.0
+        $sub_discount = session('sub_discount'); // 3%
+
+        if ( session('payment_value') == 3) {
+            $vat3 = session('vat');
+            $vat7 = 0;
+        } elseif (session('payment_value') == 7) {
+            $vat7 = session('vat');
+            $vat3 = 0;
+        } else {
+            $vat3 = 0;
+            $vat7 = 0;
+        }
+
+        $total = session('total'); // 1998.2
+        $pay_name = session('pay_name'); // VisaCard
+        $payment_value = session('payment_value'); // 3
+
+        $Cart_orders = Cart_orders::create([
+            'ref_order_id' => $cardNumber,
+            'customer' => $customer,
+            'payment' => $pay_name,
+            'discount' => $discount,
+            'vat3' => $vat3,
+            'vat7' => $vat7,
+            'price' => $price,
+            'comment' => $comment,
+            'sdate' => $sdate,
+            'edate' => $edate,
+            'total' => $total,
+            'user_id' => Auth::user()->name,
+        ]);
 
         // payment
         $Origin_total = $request->input('total');
@@ -305,16 +347,16 @@ class CartController extends Controller
         $sub_total = session()->get('sub_total'); // ยอดรวมทั้งหมด
 
         // dd($payment_value);
-        $cart = session()->get('cart');
-        foreach ($cart as $item) {
-            CartItem::create([
-                'user_id' => Auth::id(),
-                'product_id' => $item['id'],
-                'product_name' => $item['name'],
-                'price' => $item['price'],
-                'quantity' => $item['quantity'],
-            ]);
-        }
+        // $cart = session()->get('cart');
+        // foreach ($cart as $item) {
+        //     CartItem::create([
+        //         'user_id' => Auth::id(),
+        //         'product_id' => $item['id'],
+        //         'product_name' => $item['name'],
+        //         'price' => $item['price'],
+        //         'quantity' => $item['quantity'],
+        //     ]);
+        // }
 
         Session::forget('cart');
         Session::forget('discount');
