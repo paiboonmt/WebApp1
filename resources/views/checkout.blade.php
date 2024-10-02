@@ -44,6 +44,10 @@
                                 </tfoot>
                                 </tbody>
                             </table>
+
+                            <div class="row">
+
+                            </div>
                         </div>
 
                         {{-- End --}}
@@ -55,45 +59,50 @@
                             <div class="row">
                                 <div class="col">
                                     <table class="table">
-                                        <tr>
-                                            <td>Total</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-right">{{ number_format($total,2) }}</td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-weight: bold">Total</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="text-right" style="font-weight: 900; color:red">{{ number_format($total,2) }}</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
 
                             {{-- add discount --}}
                             @if (session('discount'))
-                                @else
-                                    <form action="{{ route('addDiscount') }}" method="post">
-                                        @csrf
-                                        <div class="row py-1">
-                                                <div class="col-6">
-                                                    <div class="input-group">
-                                                        <label class="input-group-text">Discound</label>
-                                                        <select name="discount" class="form-control">
-                                                            <option value="0">0%</option>
-                                                            <option value="3">3%</option>
-                                                            <option value="5">5%</option>
-                                                            <option value="10">10%</option>
-                                                        </select>
-                                                        <button class="btn btn-info" type="submit">Add</button>
-                                                    </div>
-                                                </div>
+                            {{-- ถ้ามี discount ให้เป็นช่องว่าง --}}
+                            @else
+                            {{-- ถ้าไม่มี ให้แสดงช่องเพื่ม Dsicount --}}
+                                <form action="{{ route('addDiscount') }}" method="post">
+                                    @csrf
+                                    <div class="row py-1">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <label class="input-group-text">Discound</label>
+                                                    <select name="discount" class="form-control">
+                                                        <option value="0">0%</option>
+                                                        <option value="3">3%</option>
+                                                        <option value="5">5%</option>
+                                                        <option value="10">10%</option>
+                                                    </select>
+                                                <button class="btn btn-info" type="submit">Add</button>
+                                            </div>
                                         </div>
-                                    </form>
-                                @endif
+                                    </div>
+                                </form>
+                            @endif
+
+                            {{-- show discount --}}
+                            @if (session('discount'))
 
                                 {{-- show discount --}}
-                                @if (session('discount'))
-
-                                    {{-- show discount --}}
-                                    <div class="row">
-                                        <div class="col">
-                                            <table class="table">
+                                <div class="row">
+                                    <div class="col">
+                                        <table class="table">
+                                            <tbody>
                                                 <tr>
                                                     <td>
                                                         <form action="{{ route('removeDiscount') }}" method="post">
@@ -102,58 +111,59 @@
                                                             <button class="btn btn-warning" type="submit"><i class="fa-solid fa-trash"></i></button>
                                                         </form>
                                                     </td>
-                                                    <td></td>
-                                                    <td>Discount :</td>
+                                                    <td>Discount</td>
                                                     <td class="text-right">{{ session('sub_discount') }} %</td>
                                                     <td class="text-right">{{ number_format(session('discount'), 2) }}</td>
                                                 </tr>
-                                            </table>
-                                        </div>
+                                            </tbody>
+                                        </table>
                                     </div>
+                                </div>
 
-                                    {{-- add payment --}}
-                                    <form action="{{ route('addPayment') }}" method="post">
-                                        @csrf
-                                        <div class="row">
-                                            @if (session('pay_name'))
-                                            @else
-                                                <div class="col-6">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">Payment</span>
-                                                        <select class="form-control" id="payment" name="payment_value" onchange="updatePayName()">
-                                                            <option> --Choose-- </option>
-                                                            @foreach ($payments as $payment)
-                                                                <option value="{{ $payment->value }}" data-name="{{ $payment->pay_name }}">{{ $payment->pay_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('pay_name')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                        <input type="hidden" id="pay_name" name="pay_name">
-                                                        <input type="hidden" name="total" value="{{ $total }}">
-                                                        <script>
-                                                            function updatePayName() {
-                                                                var select = document.getElementById('payment');
-                                                                var selectedOption = select.options[select.selectedIndex];
-                                                                var payName = selectedOption.getAttribute('data-name');
-                                                                document.getElementById('pay_name').value = payName;
-                                                            }
-                                                        </script>
-                                                        <button class="btn btn-info" type="submit">Add</button>
-                                                    </div>
+                                {{-- add payment --}}
+                                <form action="{{ route('addPayment') }}" method="post">
+                                    @csrf
+                                    <div class="row">
+                                        @if (session('pay_name'))
+                                        @else
+                                            <div class="col-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Payment</span>
+                                                    <select class="form-control" id="payment" name="payment_value" onchange="updatePayName()">
+                                                        <option> --Choose-- </option>
+                                                        @foreach ($payments as $payment)
+                                                            <option value="{{ $payment->value }}" data-name="{{ $payment->pay_name }}">{{ $payment->pay_name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                     @error('pay_name')
                                                         <p class="text-danger">{{ $message }}</p>
                                                     @enderror
+                                                    <input type="hidden" id="pay_name" name="pay_name">
+                                                    <input type="hidden" name="total" value="{{ $total }}">
+                                                    <script>
+                                                        function updatePayName() {
+                                                            var select = document.getElementById('payment');
+                                                            var selectedOption = select.options[select.selectedIndex];
+                                                            var payName = selectedOption.getAttribute('data-name');
+                                                            document.getElementById('pay_name').value = payName;
+                                                        }
+                                                    </script>
+                                                    <button class="btn btn-info" type="submit">Add</button>
                                                 </div>
-                                            @endif
-                                        </div>
-                                    </form>
+                                                @error('pay_name')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        @endif
+                                    </div>
+                                </form>
 
                                     {{-- show payment --}}
                                     @if (session('pay_name'))
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-12">
                                                 <table class="table">
+                                                    <tbody>
                                                         <tr>
                                                             <td>
                                                                 <form action="{{ route('removePayment') }}" method="post">
@@ -162,11 +172,11 @@
                                                                     <button class="btn btn-warning" type="submit"><i class="fa-solid fa-trash"></i></button>
                                                                 </form>
                                                             </td>
-                                                            <td></td>
                                                             <td>{{ session('pay_name') }}</td>
                                                             <td class="text-right">{{ session('payment_value')}} %</td>
                                                             <td class="text-right">{{ number_format(session('vat'),2) }}</td>
                                                         </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -247,18 +257,19 @@
                                         <div class="row">
                                             <div class="col">
                                                 <table class="table">
-                                                    <tr>
-                                                        <td>
-                                                            <form action="{{ route('removeSubPayment') }}" method="post">
-                                                                @csrf
-                                                                <button class="btn btn-warning" type="submit"><i class="fa-solid fa-trash"></i></button>
-                                                            </form>
-                                                        </td>
-                                                        <td></td>
-                                                        <td>{{ session('sub_pay_name') }}</td>
-                                                        <td>{{ session('sub_payment')}} %</td>
-                                                        <td class="text-right">{{ number_format(session('vat_sub'), 2) }}</td>
-                                                    </tr>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <form action="{{ route('removeSubPayment') }}" method="post">
+                                                                    @csrf
+                                                                    <button class="btn btn-warning" type="submit"><i class="fa-solid fa-trash"></i></button>
+                                                                </form>
+                                                            </td>
+                                                            <td>{{ session('sub_pay_name') }}</td>
+                                                            <td class="text-right">{{ session('sub_payment')}} %</td>
+                                                            <td class="text-right">{{ number_format(session('vat_sub'),2) }}</td>
+                                                        </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -542,23 +553,7 @@
 
                             @endif
                         </div>
-
                     </div>
-
-                    {{--  Remove all and save order--}}
-                    {{-- <div class="row py-3">
-                        <div class="col-6">
-                            <a href="{{ route('cancelcart') }}" class="btn btn-danger form-control">Remove</a>
-                        </div>
-                        <div class="col-6">
-                            <form action="{{ route('complete') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="total" value="{{ $total }}">
-                                <button class="btn btn-success form-control" type="submit">Save complete</button>
-                            </form>
-                        </div>
-                    </div> --}}
-
                 </div>
             </div>
         </div>

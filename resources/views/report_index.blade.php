@@ -14,8 +14,7 @@
                                 <th>Price</th>
                                 <th>Discount</th>
                                 <th>Payment</th>
-                                <th>Vat 3%</th>
-                                <th>Vat 7%</th>
+                                <th>Vat</th>
                                 <th>Total</th>
                                 <th>Action</th>
                             </tr>
@@ -27,32 +26,54 @@
                                     <td>
                                         <i class="btn btn-info fa-solid fa-magnifying-glass"></i>
                                     </td>
-                                    <td class="text-right">{{ $item->ref_order_id }}</td>
-                                    <td class="text-right">{{ $item->customer }}</td>
-                                    <td class="text-right">{{ number_format($item->price,2) }}</td>
-                                    <td class="text-right">{{ number_format($item->discount,2) }}</td>
-                                    <td class="text-right">{{ $item->payment }}</td>
-                                    <td class="text-right">{{ number_format($item->vat3,2)}}</td>
-                                    <td class="text-right">{{ number_format($item->vat7,2) }}</td>
-                                    <td class="text-right">{{ number_format($item->total,2) }}</td>
+                                    <td>{{ $item->ref_order_id }}</td>
+                                    <td>{{ $item->customer }}</td>
+                                    <td>{{ number_format($item->price,2) }}</td>
+                                    <td>{{ $item->discount_value .' %' . ' / ' . number_format($item->discount,2) }}</td>
+                                    <td>{{ $item->payment }}</td>
+
+                                    @if ($item->vat3 != 0 && $item->vat7 != 0)
+
+                                        <td>sss</td>
+
+                                    @elseif ($item->vat3 != 0)
+
+                                        <td>{{ $item->payment_value .' %' . ' / ' .  number_format($item->vat3,2)}}</td>
+
+                                    @elseif ($item->vat7 != 0)
+
+                                        <td>{{ $item->payment_value .' %' . ' / ' .  number_format($item->vat7,2)}}</td>
+
+                                    @endif
+
+                                    <td>{{ number_format($item->total,2) }}</td>
                                     <td>
-                                        {{-- <form action="{{ route('report_dastroy') }}" method="post">
+                                        <form id="delete-form-{{ $item->id }}" method="POST" action="{{ route('report_dastroy', $item->id) }}">
                                             @csrf
-                                            <input type="hidden" name="id" value="{{ $item->id }}">
-                                            <button class="btn btn-sm btn-danger delete-button" type="submit">
-                                                <i class="fa-regular fa-trash-can"></i>
-                                            </button>
-                                        </form> --}}
-
-                                        <button class="btn btn-sm btn-danger delete-button"  data-id="{{ $item->id }}">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                        </button>
-
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $item->id }})"><i class="fa-regular fa-trash-can"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+
+                    <div class="row">
+                        {{ $ticketReport }}
+                    </div>
+
+                    @if(session('success'))
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: '{{ session('success') }}',
+                                timer: 2000, // optional auto-close timer
+                                showConfirmButton: false
+                            });
+                        </script>
+                    @endif
 
                 </div>
             </div>
@@ -61,53 +82,19 @@
 </x-app-layout>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Event listener for delete button
-        document.querySelectorAll('.delete-button').forEach(button => {
-            button.addEventListener('click', function () {
-                var itemId = this.getAttribute('data-id');
-
-                // SweetAlert confirmation
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Make AJAX request to delete the item
-                        $.ajax({
-                            // url: '/items/' + itemId,
-                            url: "{{ route('report_dastroy', '') }}/" + itemId,  // URL to your delete route
-                            type: 'DELETE',
-                            data: {
-                                _token: '{{ csrf_token() }}'  // Include CSRF token
-                            },
-                            success: function (response) {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your item has been deleted.',
-                                    'success'
-                                );
-
-                                // Optionally remove the item from the DOM
-                                location.reload();
-                            },
-                            error: function (xhr) {
-                                Swal.fire(
-                                    'Failed!',
-                                    'There was a problem deleting your item.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    });
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        })
+    }
 </script>
-

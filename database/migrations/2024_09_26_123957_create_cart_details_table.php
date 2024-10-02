@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('ref_order_id');
             $table->string('customer');
             $table->string('payment');
+            $table->string('payment_value');
             $table->string('discount');
+            $table->string('discount_value');
             $table->string('vat3');
             $table->string('vat7');
             $table->double('price');
@@ -24,7 +26,7 @@ return new class extends Migration
             $table->string('sdate');
             $table->string('edate');
             $table->string('total');
-            $table->string('user_id');
+            $table->string('user');
             $table->timestamps();
         });
     }

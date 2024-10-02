@@ -154,12 +154,15 @@ class CartController extends Controller
             'pay_name' => 'required'
         ]);
 
+        // dd($request->input(), session()->all());
+
         $discount = session()->get('discount');
         $total = $total - $discount;
 
         if ( session('sub_discount') ) {
 
             if ( $request->payment_value == 7) {
+
                 $vat = ( $total * $request->payment_value) / 100 ;
                 $total = $total + $vat;
                 session([
@@ -171,6 +174,7 @@ class CartController extends Controller
                 return to_route('cart_checkout');
 
             }elseif ( $request->payment_value == 3) {
+
                 $vat = ( $total * $request->payment_value) / 100 ;
                 $total = $total + $vat;
                 session([
@@ -290,7 +294,7 @@ class CartController extends Controller
             'total' => 'required',
         ]);
 
-        // dd($request->input(),session()->all());
+        // dd(session()->all());
 
         $cardNumber = $request->cardNumber;
         $customer = $request->customer;
@@ -299,30 +303,64 @@ class CartController extends Controller
         $edate = $request->edate;
         $price = $request->total;
 
+        $pay_name = session('pay_name');
+
+        $sub_pay_name = session('sub_pay_name');
+
         $discount = session('discount'); // 60.0
+
         $sub = session('sub'); // 1940.0
         $sub_discount = session('sub_discount'); // 3%
 
-        if ( session('payment_value') == 3) {
-            $vat3 = session('vat');
+
+        if (session('payment_value') == 3 && session('sub_payment') == 7) {
+
+            $vat3 = session('payment_value');
+            $vat7 = session('sub_payment');
+
+        } elseif (session('payment_value') == 7 && session('sub_payment') == 3) {
+
+            $vat7 = session('payment_value');
+            $vat3 = session('sub_payment');
+
+        } elseif ( session('payment_value') == 3) {
+
+            $vat3 = session('payment_value');
             $vat7 = 0;
+
         } elseif (session('payment_value') == 7) {
-            $vat7 = session('vat');
+
+            $vat7 = session('payment_value');
             $vat3 = 0;
+
         } else {
+
             $vat3 = 0;
             $vat7 = 0;
+
         }
+
 
         $total = session('total'); // 1998.2
         $pay_name = session('pay_name'); // VisaCard
         $payment_value = session('payment_value'); // 3
 
+        // payment
+        $Origin_total = $request->input('total');
+        $vat = session()->get('vat');
+
+        $sub_pay_name = session()->get('sub_pay_name');
+        $sub_payment = session()->get('sub_payment');
+        $vat_sub = session()->get('vat_sub');
+        $sub_total = session()->get('sub_total'); // ยอดรวมทั้งหมด
+
         Cart_orders::create([
             'ref_order_id' => $cardNumber,
             'customer' => $customer,
             'payment' => $pay_name,
+            'payment_value' => $payment_value,
             'discount' => $discount,
+            'discount_value' => $sub_discount,
             'vat3' => $vat3,
             'vat7' => $vat7,
             'price' => $price,
@@ -330,21 +368,12 @@ class CartController extends Controller
             'sdate' => $sdate,
             'edate' => $edate,
             'total' => $total,
-            'user_id' => Auth::user()->name,
+            'user' => Auth::user()->name,
         ]);
 
-        // payment
-        $Origin_total = $request->input('total');
-        $pay_name = session()->get('pay_name');
-        $payment_value = session()->get('payment_value');
-        $vat = session()->get('vat');
-        $total = session()->get('total');
 
         // sub_payment
-        $sub_pay_name = session()->get('sub_pay_name');
-        $sub_payment = session()->get('sub_payment');
-        $vat_sub = session()->get('vat_sub');
-        $sub_total = session()->get('sub_total'); // ยอดรวมทั้งหมด
+
 
         // dd($payment_value);
         // $cart = session()->get('cart');
