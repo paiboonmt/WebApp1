@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
 
     // route('report_index');
     Route::get('report_index',[ReportController::class,'index'])->name('report_index');
+    Route::get('viewBill/{id}',[ReportController::class,'viewBill'])->name('viewBill');
     Route::delete('report_dastroy/{id}',[ReportController::class,'dastroy'])->name('report_dastroy');
 
 });

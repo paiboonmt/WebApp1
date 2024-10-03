@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('discount');
             $table->string('discount_value');
             $table->string('vat3');
+            $table->string('vat3_value');
             $table->string('vat7');
+            $table->string('vat7_value');
             $table->double('price');
             $table->string('comment');
             $table->string('sdate');

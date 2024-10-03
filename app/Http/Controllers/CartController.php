@@ -312,26 +312,37 @@ class CartController extends Controller
         $sub = session('sub'); // 1940.0
         $sub_discount = session('sub_discount'); // 3%
 
-
         if (session('payment_value') == 3 && session('sub_payment') == 7) {
 
             $vat3 = session('payment_value');
+            $vat3_value = session()->get('vat');
+
             $vat7 = session('sub_payment');
+            $vat7_value = session('vat_sub');
 
         } elseif (session('payment_value') == 7 && session('sub_payment') == 3) {
 
             $vat7 = session('payment_value');
+            $vat7_value = session('vat');
+
             $vat3 = session('sub_payment');
+            $vat3_value = session()->get('vat_sub');
 
         } elseif ( session('payment_value') == 3) {
 
             $vat3 = session('payment_value');
+            $vat3_value = session()->get('vat');
+
             $vat7 = 0;
+            $vat7_value = 0;
 
         } elseif (session('payment_value') == 7) {
 
             $vat7 = session('payment_value');
+            $vat7_value = session('vat');
+
             $vat3 = 0;
+            $vat3_value = 0;
 
         } else {
 
@@ -347,22 +358,26 @@ class CartController extends Controller
 
         // payment
         $Origin_total = $request->input('total');
-        $vat = session()->get('vat');
+
 
         $sub_pay_name = session()->get('sub_pay_name');
         $sub_payment = session()->get('sub_payment');
         $vat_sub = session()->get('vat_sub');
         $sub_total = session()->get('sub_total'); // ยอดรวมทั้งหมด
 
+        // dd($paymentArray);
+
         Cart_orders::create([
             'ref_order_id' => $cardNumber,
             'customer' => $customer,
-            'payment' => $pay_name,
+            'payment' => "$pay_name,$sub_pay_name",
             'payment_value' => $payment_value,
             'discount' => $discount,
             'discount_value' => $sub_discount,
             'vat3' => $vat3,
+            'vat3_value' => $vat3_value,
             'vat7' => $vat7,
+            'vat7_value' => $vat7_value,
             'price' => $price,
             'comment' => $comment,
             'sdate' => $sdate,
@@ -400,6 +415,7 @@ class CartController extends Controller
         Session::forget('vat_sub');
         Session::forget('sub_total');
 
-        return to_route('ticket')->with('success','Save data Successfully.');
+        return to_route('report_index')->with('success','Save data Successfully.');
+        // return to_route('ticket')->with('success','Save data Successfully.');
     }
 }

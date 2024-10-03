@@ -9,7 +9,8 @@ use App\Models\Cart_orders;
 class ReportController extends Controller
 {
     public function index() {
-        $ticketReport = Cart_orders::limit(1)->get();
+        // $ticketReport = Cart_orders::limit(1)->get();
+        $ticketReport = Cart_orders::all();
         return view('report_index',compact('ticketReport'));
     }
 
@@ -17,5 +18,10 @@ class ReportController extends Controller
         $item = Cart_orders::findOrFail($id);
         $item->delete();
         return to_route('report_index')->with('success', 'Item deleted successfully');
+    }
+
+    public function viewBill($id){
+        dd($id);
+        return view('view_bill');
     }
 }
