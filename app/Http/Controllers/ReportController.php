@@ -21,7 +21,7 @@ class ReportController extends Controller
     }
 
     public function viewBill($id){
-        dd($id);
-        return view('view_bill');
+        $data = Cart_orders::findOrFail($id);
+        return view('view_bill',compact('data'));
     }
 }

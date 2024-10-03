@@ -44,7 +44,7 @@
                     @endif
 
                     @if ( Auth::user()->role == 'admin')
-                        <x-nav-link :href="route('report_index')" :active="request()->routeIs(['report_index'])">
+                        <x-nav-link :href="route('report_index')" :active="request()->routeIs(['report_index','viewBill'])">
                             {{ __('Report') }}
                         </x-nav-link>
                     @endif
