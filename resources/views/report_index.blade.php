@@ -11,6 +11,7 @@
                                 <th>View</th>
                                 <th>Code</th>
                                 {{-- <th>Customer</th> --}}
+                                <th>Product</th>
                                 <th>Price</th>
                                 <th>Discount</th>
                                 <th>Payment</th>
@@ -28,6 +29,7 @@
                                     </td>
                                     <td>{{ $item->ref_order_id }}</td>
                                     {{-- <td>{{ $item->customer }}</td> --}}
+                                    <td>{{ $item->product_name }}</td>
                                     <td>{{ number_format($item->price,2) }}</td>
                                     <td>{{ $item->discount_value .' %' . ' / ' . number_format($item->discount,2) }}</td>
                                     <td>{{ $item->payment }}</td>

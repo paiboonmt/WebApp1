@@ -3,16 +3,19 @@
         <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="row">
+                    <div class="row mb-2">
 
-                        <div class="col mb-3">
-                            <a href="{{ route('editeBill',$data[0]->order_id) }}" class="btn btn-success focus-ring focus-ring-success border rounded-2" style="width: 10%">Update data</a>
-                            <a href="" class="btn btn-danger focus-ring focus-ring-danger border rounded-2" style="width: 10%">Delete data</a>
-                            <a href="" class="btn btn-info focus-ring focus-ring-info border rounded-2" style="width: 10%">Print data</a>
-                        </div>
-                    
+                       <div class="col">
+                            <div class="card">
+                                <div class="card-header bg-danger">
+                                    <span style="color: white; font-size: 28px">UPDATE</span>
+                                </div>
+                            </div>
+                       </div>
+
                     </div>
                     <hr class="mb-2">
+
                     <div class="row">
 
                         <div class="col-6">
@@ -23,7 +26,7 @@
                                         <th>Product name</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
-                                        {{-- <th>Total</th> --}}
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,12 +39,21 @@
                                             <td>{{ $item->product_name }}</td>
                                             <td>{{ number_format($item->price,2) }}</td>
                                             <td>{{ $item->quantity }}</td>
+                                            <td>
+                                                <form id="delete-form-{{ $item->id }}" method="POST" action="{{ route('deleteItem', $item->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="ref_order_id" value="{{ $item->price }}">
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $item->id }})"><i class="fa-regular fa-trash-can"></i></button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
 
-                            <textarea class="form-control mt-3"  rows="9"> {{ $data[0]->comment }}</textarea>
+                            {{-- <textarea class="form-control mt-3"  rows="9"> {{ $data[0]->comment }}</textarea> --}}
+                            <textarea class="form-control mt-3"  rows="9"> {{ $data }}</textarea>
 
                         </div>
 
@@ -95,8 +107,38 @@
                         </div>
 
                     </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-footer bg-success">
+                                    <span style="color: white; font-size: 28px; float: right;">
+                                        <button class="btn btn-info">UPDATE</button>
+                                    </span>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        })
+    }
+</script>

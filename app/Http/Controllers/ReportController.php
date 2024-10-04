@@ -21,17 +21,21 @@ class ReportController extends Controller
         return to_route('report_index')->with('success', 'Item deleted successfully');
     }
 
-    public function viewBill($id){
+    public function viewBill( string $id){
         $data = DB::table('cart_orders')
             ->join('cart_orders_details' , 'cart_orders.ref_order_id' , '=' , 'cart_orders_details.order_id')
-            ->select('cart_orders.*','cart_orders_details.*','cart_orders_details.id AS o_id' )
+            ->select('cart_orders.*','cart_orders_details.*')
             ->where('cart_orders.id',$id)
             ->get();
         return view('view_bill',compact('data'));
     }
 
-    public function edite(Request $request , string $id){
-
-        return to_route('view_bill')->with('update', 'Item updated successfully');
+    public function edite(string $order_id){
+        $data = DB::table('cart_orders')
+        ->join('cart_orders_details' , 'cart_orders.ref_order_id' , '=' , 'cart_orders_details.order_id')
+        ->select('cart_orders.*','cart_orders_details.*')
+        ->where('cart_orders.ref_order_id',$order_id)
+        ->get();
+        return view('editeBill',compact('data'));
     }
 }

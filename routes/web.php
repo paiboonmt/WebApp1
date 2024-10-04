@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\OrderDetailsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -60,6 +61,11 @@ Route::middleware('auth')->group(function () {
     // route('report_index');
     Route::get('report_index',[ReportController::class,'index'])->name('report_index');
     Route::get('viewBill/{id}',[ReportController::class,'viewBill'])->name('viewBill');
+    Route::get('editeBill/{order_id}',[ReportController::class,'edite'])->name('editeBill');
+
+    // Remove Item in order_detail
+    Route::delete('deleteItem/{id}',[OrderDetailsController::class,'destroy'])->name('deleteItem');
+
     Route::delete('report_dastroy/{id}',[ReportController::class,'dastroy'])->name('report_dastroy');
 
 });
