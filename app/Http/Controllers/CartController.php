@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use App\Models\Cart_orders;
-use Illuminate\Container\Attributes\Tag;
+use App\Models\Cart_orders_details;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -294,7 +294,7 @@ class CartController extends Controller
             'total' => 'required',
         ]);
 
-        dd(session()->all());
+        // dd(session()->all());
 
         $cardNumber = $request->cardNumber;
         $customer = $request->customer;
@@ -356,14 +356,7 @@ class CartController extends Controller
         $pay_name = session('pay_name'); // VisaCard
         $payment_value = session('payment_value'); // 3
 
-        // payment
-        $Origin_total = $request->input('total');
-
         $sub_pay_name = session()->get('sub_pay_name');
-        $sub_payment = session()->get('sub_payment');
-        $vat_sub = session()->get('vat_sub');
-        $sub_total = session()->get('sub_total'); // ยอดรวมทั้งหมด
-
         Cart_orders::create([
             'ref_order_id' => $cardNumber,
             'customer' => $customer,
@@ -384,24 +377,17 @@ class CartController extends Controller
         ]);
 
 
-
-        // INSERT INTO `cart_orders_details`(`id`, `order_id`, `product_id`, `product_name`, `price`, `quantity`, `total`, `date`, `created_at`, `updated_at`)
-
         $cart = session()->get('cart');
-
-        foreach ($cart as $item) {
-
-            Order_details::create([
-
+        foreach ($cart as $id => $item) {
+            Cart_orders_details::create([
+                'order_id' => $cardNumber,
+                'product_id' => $item['id'],
+                'product_name' => $item['name'],
+                'price' => $item['price'],
+                'quantity' => $item['quantity'],
+                'total' => $total,
+                'date' => date('Y-m-d'),
             ]);
-
-            // CartItem::create([
-            //     'user_id' => Auth::id(),
-            //     'product_id' => $item['id'],
-            //     'product_name' => $item['name'],
-            //     'price' => $item['price'],
-            //     'quantity' => $item['quantity'],
-            // ]);
         }
 
         Session::forget('cart');

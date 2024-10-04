@@ -30,8 +30,8 @@
                                                             value="{{ $item->price }}">
                                                         <input type="hidden" name="quantity" value="1"
                                                             min="1">
-                                                        <button type="submit" class="btn btn-sm btn-success"><i
-                                                                class="fa-solid fa-cart-shopping"></i></button>
+                                                        <button type="submit" class="btn btn-sm btn-success focus-ring focus-ring-success border rounded-2">
+                                                            <i class="fa-solid fa-cart-shopping"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>
