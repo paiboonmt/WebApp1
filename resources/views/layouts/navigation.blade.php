@@ -50,11 +50,26 @@
                     @endif
 
                     @if ( Auth::user()->role == 'admin')
-                        <x-nav-link :href="route('ticket')" :active="request()->routeIs(['products'])">
-                            {{ __('Products') }}
-                        </x-nav-link>
+                        <x-product-dropdown>
+
+                            <x-slot name="trigger">
+                                Product
+                            </x-slot>
+
+                            <li>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Option 1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Option 2</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Option 3</a>
+                            </li>
+
+                        </x-product-dropdown>
                     @endif
 
+                 
                 </div>
             </div>
 
