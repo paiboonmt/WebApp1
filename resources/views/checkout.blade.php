@@ -79,7 +79,7 @@
                                 <form action="{{ route('addDiscount') }}" method="post">
                                     @csrf
                                     <div class="row py-1">
-                                        <div class="col-6">
+                                        <div class="col">
                                             <div class="input-group">
                                                 <label class="input-group-text">Discound</label>
                                                     <select name="discount" class="form-control">
@@ -126,7 +126,7 @@
                                     <div class="row">
                                         @if (session('pay_name'))
                                         @else
-                                            <div class="col-6">
+                                            <div class="col-12">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Payment</span>
                                                     <select class="form-control" id="payment" name="payment_value" onchange="updatePayName()">
@@ -158,210 +158,210 @@
                                     </div>
                                 </form>
 
-                                    {{-- show payment --}}
-                                    @if (session('pay_name'))
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <form action="{{ route('removePayment') }}" method="post">
-                                                                    @csrf
-                                                                    <input type="hidden" name="tax3" value="{{ session('payment') }}">
-                                                                    <button class="btn btn-warning" type="submit"><i class="fa-solid fa-trash"></i></button>
-                                                                </form>
-                                                            </td>
-                                                            <td>{{ session('pay_name') }}</td>
-                                                            <td class="text-right">{{ session('payment_value')}} %</td>
-                                                            <td class="text-right">{{ number_format(session('vat'),2) }}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    {{-- add sub payment --}}
-                                    @if (session('payment_value') == 7)
-                                        @if (session('sub_payment'))
-                                        @else
-                                            <form action="{{ route('addSubPayment') }}" method="post">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="input-group">
-                                                            <span class="input-group-text">3 %</span>
-                                                            <select class="form-control" id="payment" name="sub_payment" onchange="updatePayName()">
-                                                                <option> --Choose--</option>
-                                                                @foreach ($vat3 as $v3)
-                                                                    <option value="{{ $v3->value }}" data-name="{{ $v3->pay_name }}">{{ $v3->pay_name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <input type="hidden" id="pay_name" name="pay_name">
-                                                            <input type="hidden" name="total" value="{{ session('total') }}">
-                                                            <script>
-                                                                function updatePayName() {
-                                                                    var select = document.getElementById('payment');
-                                                                    var selectedOption = select.options[select.selectedIndex];
-                                                                    var payName = selectedOption.getAttribute('data-name');
-                                                                    document.getElementById('pay_name').value = payName;
-                                                                }
-                                                            </script>
-                                                            <button class="btn btn-info" type="submit">Add</button>
-                                                        </div>
-                                                        @error('pay_name')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        @endif
-                                    @elseif (session('payment_value') == 3)
-                                        @if (session('sub_payment'))
-                                        @else
-                                            <form action="{{ route('addSubPayment') }}" method="post">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="input-group">
-                                                            <span class="input-group-text">Sub payment</span>
-                                                            <select class="form-control" id="payment" name="sub_payment" onchange="updatePayName()">
-                                                                <option> --Choose--</option>
-                                                                @foreach ($vat7 as $v7)
-                                                                    <option value="{{ $v7->value }}" data-name="{{ $v7->pay_name }}">{{ $v7->pay_name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <input type="hidden" id="pay_name" name="pay_name">
-                                                            <input type="hidden" name="total" value="{{ session('total') }}">
-                                                            <script>
-                                                                function updatePayName() {
-                                                                    var select = document.getElementById('payment');
-                                                                    var selectedOption = select.options[select.selectedIndex];
-                                                                    var payName = selectedOption.getAttribute('data-name');
-                                                                    document.getElementById('pay_name').value = payName;
-                                                                }
-                                                            </script>
-                                                            <button class="btn btn-info" type="submit">Add</button>
-                                                        </div>
-                                                        @error('pay_name')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        @endif
-                                    @endif
-
-                                    @if (session('sub_total'))
-                                        <div class="row">
-                                            <div class="col">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <form action="{{ route('removeSubPayment') }}" method="post">
-                                                                    @csrf
-                                                                    <button class="btn btn-warning" type="submit"><i class="fa-solid fa-trash"></i></button>
-                                                                </form>
-                                                            </td>
-                                                            <td>{{ session('sub_pay_name') }}</td>
-                                                            <td class="text-right">{{ session('sub_payment')}} %</td>
-                                                            <td class="text-right">{{ number_format(session('vat_sub'),2) }}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    {{-- Grand Total --}}
-                                    @if (session('sub_total'))
-                                        <div class="row">
-                                            <div class="col">
-                                                <table class="table">
+                                {{-- show payment --}}
+                                @if (session('pay_name'))
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="table">
+                                                <tbody>
                                                     <tr>
-                                                        <td style="font-weight: bold">Grand Total :</td>
-                                                        <td></td>
-                                                        <td class="text-right">{{ number_format(session('sub_total'), 2) }}</td>
+                                                        <td>
+                                                            <form action="{{ route('removePayment') }}" method="post">
+                                                                @csrf
+                                                                <input type="hidden" name="tax3" value="{{ session('payment') }}">
+                                                                <button class="btn btn-warning" type="submit"><i class="fa-solid fa-trash"></i></button>
+                                                            </form>
+                                                        </td>
+                                                        <td>{{ session('pay_name') }}</td>
+                                                        <td class="text-right">{{ session('payment_value')}} %</td>
+                                                        <td class="text-right">{{ number_format(session('vat'),2) }}</td>
                                                     </tr>
-                                                </table>
-                                            </div>
+                                                </tbody>
+                                            </table>
                                         </div>
+                                    </div>
+                                @endif
+
+                                {{-- add sub payment --}}
+                                @if (session('payment_value') == 7)
+                                    @if (session('sub_payment'))
                                     @else
-                                        <div class="row">
-                                            <div class="col">
-                                                <table class="table">
-                                                    <tr>
-                                                        <td style="font-weight: bold">Grand Total :</td>
-                                                        <td></td>
-                                                        <td class="text-right">{{ number_format(session('total'), 2) }}</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    <form action="{{ route('complete') }}" method="post">
-                                        @csrf
-
-                                        <div class="input-group py-1">
-                                            <span class="input-group-text" id="basic-addon1">Number</span>
-                                            <input type="text" name="cardNumber" class="form-control" placeholder="card" value="{{ $cardNumber }}">
-                                        </div>
-
-                                        {{-- Customer name --}}
-                                        <div class="row py-1">
-                                            <div class="col">
-                                                <div class="form-floating">
-                                                    <textarea class="form-control" name="customer" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 20px">{{ old('customer') }}Paiboon Yaniwong</textarea>
-                                                    <label for="floatingTextarea2">Customer name</label>
-                                                    @error('customer')
+                                        <form action="{{ route('addSubPayment') }}" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">3 %</span>
+                                                        <select class="form-control" id="payment" name="sub_payment" onchange="updatePayName()">
+                                                            <option> --Choose--</option>
+                                                            @foreach ($vat3 as $v3)
+                                                                <option value="{{ $v3->value }}" data-name="{{ $v3->pay_name }}">{{ $v3->pay_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <input type="hidden" id="pay_name" name="pay_name">
+                                                        <input type="hidden" name="total" value="{{ session('total') }}">
+                                                        <script>
+                                                            function updatePayName() {
+                                                                var select = document.getElementById('payment');
+                                                                var selectedOption = select.options[select.selectedIndex];
+                                                                var payName = selectedOption.getAttribute('data-name');
+                                                                document.getElementById('pay_name').value = payName;
+                                                            }
+                                                        </script>
+                                                        <button class="btn btn-info" type="submit">Add</button>
+                                                    </div>
+                                                    @error('pay_name')
                                                         <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        {{-- add Comments --}}
-                                        <div class="row py-1">
-                                            <div class="col">
-                                                <div class="form-floating">
-                                                    <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos doloribus perspiciatis magni corrupti amet, corporis deserunt nostrum earum eius architecto?</textarea>
-                                                    <label for="floatingTextarea2">Comments</label>
+                                        </form>
+                                    @endif
+                                @elseif (session('payment_value') == 3)
+                                    @if (session('sub_payment'))
+                                    @else
+                                        <form action="{{ route('addSubPayment') }}" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Sub payment</span>
+                                                        <select class="form-control" id="payment" name="sub_payment" onchange="updatePayName()">
+                                                            <option> --Choose--</option>
+                                                            @foreach ($vat7 as $v7)
+                                                                <option value="{{ $v7->value }}" data-name="{{ $v7->pay_name }}">{{ $v7->pay_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <input type="hidden" id="pay_name" name="pay_name">
+                                                        <input type="hidden" name="total" value="{{ session('total') }}">
+                                                        <script>
+                                                            function updatePayName() {
+                                                                var select = document.getElementById('payment');
+                                                                var selectedOption = select.options[select.selectedIndex];
+                                                                var payName = selectedOption.getAttribute('data-name');
+                                                                document.getElementById('pay_name').value = payName;
+                                                            }
+                                                        </script>
+                                                        <button class="btn btn-info" type="submit">Add</button>
+                                                    </div>
+                                                    @error('pay_name')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
                                             </div>
+                                        </form>
+                                    @endif
+                                @endif
+
+                                @if (session('sub_total'))
+                                    <div class="row">
+                                        <div class="col">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <form action="{{ route('removeSubPayment') }}" method="post">
+                                                                @csrf
+                                                                <button class="btn btn-warning" type="submit"><i class="fa-solid fa-trash"></i></button>
+                                                            </form>
+                                                        </td>
+                                                        <td>{{ session('sub_pay_name') }}</td>
+                                                        <td class="text-right">{{ session('sub_payment')}} %</td>
+                                                        <td class="text-right">{{ number_format(session('vat_sub'),2) }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
+                                    </div>
+                                @endif
 
-                                        {{-- Sdate Edate --}}
-                                        <div class="row py-1">
-                                            <div class="col-6">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon1">Start</span>
-                                                    <input type="date" name="sdate" value="{{ date('Y-m-d') }}" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon1">Start</span>
-                                                    <input type="date" name="edate" value="{{ date('Y-m-d') }}" class="form-control">
-                                                </div>
+                                {{-- Grand Total --}}
+                                @if (session('sub_total'))
+                                    <div class="row">
+                                        <div class="col">
+                                            <table class="table">
+                                                <tr>
+                                                    <td style="font-weight: bold">Grand Total :</td>
+                                                    <td></td>
+                                                    <td class="text-right">{{ number_format(session('sub_total'), 2) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row">
+                                        <div class="col">
+                                            <table class="table">
+                                                <tr>
+                                                    <td style="font-weight: bold">Grand Total :</td>
+                                                    <td></td>
+                                                    <td class="text-right">{{ number_format(session('total'), 2) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <form action="{{ route('complete') }}" method="post">
+                                    @csrf
+
+                                    <div class="input-group py-1">
+                                        <span class="input-group-text" id="basic-addon1">Number</span>
+                                        <input type="text" name="cardNumber" class="form-control" placeholder="card" value="{{ $cardNumber }}">
+                                    </div>
+
+                                    {{-- Customer name --}}
+                                    <div class="row py-1">
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <textarea class="form-control" name="customer" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 20px">{{ old('customer') }}Paiboon Yaniwong</textarea>
+                                                <label for="floatingTextarea2">Customer name</label>
+                                                @error('customer')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="row py-1">
-                                            <div class="col-6">
-                                                <a href="{{ route('cancelcart') }}" class="btn btn-danger form-control">Remove</a>
-                                            </div>
-                                            <div class="col-6">
-                                                <input type="hidden" name="total" value="{{ $total }}">
-                                                <button class="btn btn-success form-control" type="submit">Save complete</button>
+                                    {{-- add Comments --}}
+                                    <div class="row py-1">
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos doloribus perspiciatis magni corrupti amet, corporis deserunt nostrum earum eius architecto?</textarea>
+                                                <label for="floatingTextarea2">Comments</label>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    {{-- Sdate Edate --}}
+                                    <div class="row py-1">
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Start</span>
+                                                <input type="date" name="sdate" value="{{ date('Y-m-d') }}" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Start</span>
+                                                <input type="date" name="edate" value="{{ date('Y-m-d') }}" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row py-1">
+                                        <div class="col-6">
+                                            <a href="{{ route('cancelcart') }}" class="btn btn-danger form-control">Remove</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="hidden" name="total" value="{{ $total }}">
+                                            <button class="btn btn-success form-control" type="submit">Save complete</button>
+                                        </div>
+                                    </div>
 
 
 
-                                    </form>
+                                </form>
 
                                 {{-- ถ้าไม่มีส่วนลดให้ทำงานหลังจาก else --}}
                             @else
@@ -372,7 +372,7 @@
                                     <div class="row">
                                         @if (session('pay_name'))
                                         @else
-                                            <div class="col-6">
+                                            <div class="col">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Payment</span>
                                                     <select class="form-control" id="payment" name="payment_value" onchange="updatePayName()">
@@ -553,6 +553,7 @@
 
                             @endif
                         </div>
+
                     </div>
                 </div>
             </div>
