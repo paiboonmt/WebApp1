@@ -135,9 +135,6 @@
                                                             <option value="{{ $payment->value }}" data-name="{{ $payment->pay_name }}">{{ $payment->pay_name }}</option>
                                                         @endforeach
                                                     </select>
-                                                    @error('pay_name')
-                                                        <p class="text-danger">{{ $message }}</p>
-                                                    @enderror
                                                     <input type="hidden" id="pay_name" name="pay_name">
                                                     <input type="hidden" name="total" value="{{ $total }}">
                                                     <script>
@@ -552,6 +549,7 @@
                                 </div>
 
                             @endif
+
                         </div>
 
                     </div>
