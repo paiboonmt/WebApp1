@@ -29,7 +29,7 @@
                                     <td>{{ $item->fname }}</td>
                                     <td>{{ $item->nationalty }}</td>
                                     <td>
-                                        <a href="{{ route('fighter_show',$item->id) }}"  class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="{{ route('fighter_show',$item->id) }}" target="_bank"  class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

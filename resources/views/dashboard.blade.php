@@ -61,7 +61,7 @@
                                     <h3>Nationality Popular</h3>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table">
+                                    <table class="table table-sm">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -92,7 +92,7 @@
                                     <h3>Check in Total </h3>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table">
+                                    <table class="table table-sm">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -127,7 +127,7 @@
                                     Type of training
                                 </div>
                                 <div class="card-body">
-                                    <table class="table">
+                                    <table class="table table-sm">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -157,7 +157,7 @@
                                     Products for sale Popular
                                 </div>
                                 <div class="card-body">
-                                    <table class="table">
+                                    <table class="table table-sm">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
